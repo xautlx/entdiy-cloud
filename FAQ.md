@@ -10,3 +10,6 @@
     private Boolean abc;
 ```
 
+此种方式使用MyBatis Plus框架基类的标准CURD方法没有问题。如果是在Mapper层面以@Select注解SQL或者SQL Mapper XML中定义以“select is_abc from ...” 无法正常绑定is_abc字段值到abc属性上面。
+
+ **解决方法参考：** 当然最彻底的办法是把数据库字段按照Java规范要求重命名为映射一致的字段名称。如果数据库结构没法动，还有种变通方法，用as语法把自定义SQL改写成“select is_abc as abc from ...”。
