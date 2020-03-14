@@ -1,7 +1,5 @@
 package ${package.Entity};
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.xuemei.common.BaseConstant;
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>

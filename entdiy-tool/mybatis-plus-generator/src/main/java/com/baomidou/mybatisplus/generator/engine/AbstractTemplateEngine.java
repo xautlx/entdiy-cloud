@@ -18,7 +18,6 @@ package com.baomidou.mybatisplus.generator.engine;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.toolkit.PackageHelper;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
@@ -33,10 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -76,7 +72,7 @@ public abstract class AbstractTemplateEngine {
                 // 自定义内容
                 InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
                 if (null != injectionConfig) {
-                    injectionConfig.initMap();
+                    injectionConfig.initTableMap(tableInfo);
                     objectMap.put("cfg", injectionConfig.getMap());
                     List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
                     if (CollectionUtils.isNotEmpty(focList)) {
@@ -185,7 +181,7 @@ public abstract class AbstractTemplateEngine {
     public void open() {
         String outDir = getConfigBuilder().getGlobalConfig().getOutputDir();
         if (getConfigBuilder().getGlobalConfig().isOpen()
-                && StringUtils.isNotEmpty(outDir)) {
+            && StringUtils.isNotBlank(outDir)) {
             try {
                 String osName = System.getProperty("os.name");
                 if (osName != null) {
@@ -246,11 +242,20 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("superServiceClass", getSuperClassName(config.getSuperServiceClass()));
         objectMap.put("superServiceImplClassPackage", config.getSuperServiceImplClass());
         objectMap.put("superServiceImplClass", getSuperClassName(config.getSuperServiceImplClass()));
-        objectMap.put("superControllerClassPackage", config.getSuperControllerClass());
+        objectMap.put("superControllerClassPackage", verifyClassPacket(config.getSuperControllerClass()));
         objectMap.put("superControllerClass", getSuperClassName(config.getSuperControllerClass()));
-        return config.getInjectionConfig().prepareObjectMap(objectMap);
+        return Objects.isNull(config.getInjectionConfig()) ? objectMap : config.getInjectionConfig().prepareObjectMap(objectMap);
     }
 
+    /**
+     * 用于渲染对象MAP信息 {@link #getObjectMap(TableInfo)} 时的superClassPacket非空校验
+     *
+     * @param classPacket ignore
+     * @return ignore
+     */
+    private String verifyClassPacket(String classPacket) {
+        return StringUtils.isBlank(classPacket) ? null : classPacket;
+    }
 
     /**
      * 获取类名
@@ -259,7 +264,7 @@ public abstract class AbstractTemplateEngine {
      * @return ignore
      */
     private String getSuperClassName(String classPath) {
-        if (StringUtils.isEmpty(classPath)) {
+        if (StringUtils.isBlank(classPath)) {
             return null;
         }
         return classPath.substring(classPath.lastIndexOf(StringPool.DOT) + 1);
@@ -291,7 +296,7 @@ public abstract class AbstractTemplateEngine {
         File file = new File(filePath);
         boolean exist = file.exists();
         if (!exist) {
-            PackageHelper.mkDir(file.getParentFile());
+            file.getParentFile().mkdirs();
         }
         return !exist || getConfigBuilder().getGlobalConfig().isFileOverride();
     }

@@ -86,9 +86,6 @@ public class TableField {
 
     public String getPropertyType() {
         if (null != columnType) {
-            if("status".equals(this.propertyName)){
-                return "BaseConstant.StatusEnum";
-            }
             return columnType.getType();
         }
         return null;
