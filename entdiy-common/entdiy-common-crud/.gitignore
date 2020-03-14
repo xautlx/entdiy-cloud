@@ -30,5 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
-### Dev Tool ###
 rebel.xml
+
+### Mac Cache File ###
+*.DS_Store
