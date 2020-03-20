@@ -17,7 +17,9 @@
 
     <modules>
         <module>entdiy-common</module>
+        <module>entdiy-tool</module>
         <module>entdiy-auth</module>
+        <module>entdiy-starter</module>
         <module>entdiy-mdm</module>
     </modules>
 

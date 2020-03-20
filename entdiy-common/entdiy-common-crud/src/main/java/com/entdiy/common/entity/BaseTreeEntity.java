@@ -15,28 +15,31 @@ import javax.persistence.MappedSuperclass;
 @Data
 @ExcelIgnoreUnannotated
 @MappedSuperclass
-public abstract class BaseTreeEntity extends BaseEntity {
+public abstract class BaseTreeEntity extends BaseEntity implements TreePersistable<Long> {
 
     /**
      * 定义外键约束为none主要是为了方便删除表重建数据，为了避免意外删除大量数据，因此不支持递归删除方式,业务接口已限制只能删除子节点。
      * 由于采用了Nested Set数据模型，除非清楚模型数据规则，请勿随意删除数据，否则会导致lft和rgt等相关数据混乱
      */
+    @Column(name = "parent_id", nullable = true)
     @ApiModelProperty(value = "上级节点主键")
     @TableField(value = "parent_id")
     private Long parentId;
 
     @Column(name = "lft", nullable = false)
+    @ApiModelProperty(value = "Nested Set Tree模型Left值")
     @TableField(value = "lft")
     private Integer lft = 0;
 
     @Column(name = "rgt", nullable = false)
+    @ApiModelProperty(value = "Nested Set Tree模型Right值")
     @TableField(value = "rgt")
     private Integer rgt = 0;
 
     @Column(name = "depth", nullable = false)
+    @ApiModelProperty(value = "节点层级")
     @TableField(value = "depth")
     private Integer depth = 0;
-
 
     public void makeRoot() {
         Assert.isTrue(this.getLft() == null || this.getLft() <= 0, "Invalid entity");

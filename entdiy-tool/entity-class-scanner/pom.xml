@@ -4,38 +4,34 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>entdiy-mdm</artifactId>
+        <artifactId>entdiy-tool</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entdiy-mdm-generator</artifactId>
+    <artifactId>entity-class-scanner</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} project for Spring Boot</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-mdm-server</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <!--
+        Must be one of ("trace", "debug", "info", "warn", "error" or "off").
+        If not specified, defaults to "info"
+        -->
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-starter-logger</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>mybatis-plus-generator-starter</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>jpa-ddl-generator-starter</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
         </dependency>
 
         <!-- http://projectlombok.org/ -->

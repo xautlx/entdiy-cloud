@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    # 设置P6Spy驱动，以获得SQL打印监控功能
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://dev.entdiy.com:3306/entdiy-mdm?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: mysqlP@sswd123
+#    url: jdbc:p6spy:mysql://103.120.227.84:3306/xuemei_mdm_dev?useUnicode=true&characterEncoding=utf-8
+#    username: lixia
+#    password: 123456
+  jpa:
+    database-platform: com.entdiy.jpa.TenantMySQL57Dialect
+    hibernate:
+      ddlAuto: update
+    properties:
+      hibernate:
+        storage_engine: innodb
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        new_generator_mappings: false
+        format_sql: true
+        show_sql: true
+mybatis-plus:
+  generator:
+    author: Li Xia
+    parentPackageName: com.entdiy
+    moduleName: mdm
+    tablePrefix: mdm_
+    superClassStrategy: com.entdiy.mybatisplus.generator.FieldParseSuperClassStrategy

@@ -4,38 +4,27 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>entdiy-mdm</artifactId>
+        <artifactId>entdiy-common</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entdiy-mdm-generator</artifactId>
+    <artifactId>entdiy-starter-logger</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} project for Spring Boot</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-mdm-server</artifactId>
-            <version>1.0.0</version>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-starter-logger</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>mybatis-plus-generator-starter</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>jpa-ddl-generator-starter</artifactId>
-            <version>1.0.0</version>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.8.6</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- http://projectlombok.org/ -->

@@ -3,30 +3,25 @@ package com.entdiy.mdm.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.entdiy.common.entity.BaseTreeEntity;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Data
 @TableName("mdm_department")
 @Entity
-@Table(name = "mdm_department",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_mdm_department_code",
-                        columnNames = {"code"})
-        }
-)
+@Table(name = "mdm_department")
 @ApiModel(value = "部门")
 public class Department extends BaseTreeEntity {
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 32, nullable = false, unique = true)
+    @ApiModelProperty(value = "部门代码")
     private String code;
 
-    private String mobile;
-
-    private String email;
+    @Column(length = 128, nullable = false)
+    @ApiModelProperty(value = "部门名称")
+    private String name;
 }
