@@ -37,14 +37,14 @@ public abstract class BaseEntity extends BaseVersionEntity implements LogicDelet
     @JsonIgnore
     private Byte logicDeleted;
 
-    @TableField(value = CREATED_AUDIT_DATA_COLUMN_NAME, fill = FieldFill.INSERT, select = false)
-    @Column(length = 512,nullable = true, name = CREATED_AUDIT_DATA_COLUMN_NAME)
+    @TableField(value = CREATED_AUDIT_DATA_COLUMN_NAME, fill = FieldFill.INSERT, select = false, updateStrategy = FieldStrategy.NEVER)
+    @Column(length = 512, nullable = true, name = CREATED_AUDIT_DATA_COLUMN_NAME)
     @ApiModelProperty(value = "创建操作审计信息", notes = "JSON字符串", hidden = true)
     @JsonIgnore
     private String createdAuditData;
 
     @TableField(value = UPDATED_AUDIT_DATA_COLUMN_NAME, fill = FieldFill.INSERT_UPDATE, select = false)
-    @Column(length = 512,nullable = true, name = UPDATED_AUDIT_DATA_COLUMN_NAME)
+    @Column(length = 512, nullable = true, name = UPDATED_AUDIT_DATA_COLUMN_NAME)
     @ApiModelProperty(name = "更新操作审计信息", notes = "JSON字符串", hidden = true)
     @JsonIgnore
     private String updatedAuditData;

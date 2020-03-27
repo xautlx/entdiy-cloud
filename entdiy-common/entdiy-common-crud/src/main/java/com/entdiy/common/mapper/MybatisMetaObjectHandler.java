@@ -6,6 +6,9 @@ import com.entdiy.common.constant.BaseConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
+import java.util.Objects;
+import java.util.function.Supplier;
+
 @Slf4j
 public class MybatisMetaObjectHandler implements MetaObjectHandler {
 
@@ -26,6 +29,23 @@ public class MybatisMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         log.debug("Start mybatis plus update fill ....");
         AuthDataHolder.AuthData authData = AuthDataHolder.get();
-        this.strictInsertFill(metaObject, "updatedAuditData", String.class, "UPDATED:TODO");
+        this.strictUpdateFill(metaObject, "updatedAuditData", String.class, "UPDATED:TODO");
+    }
+
+    /**
+     * 采用宽松通用属性值设置模式，始终强制覆盖
+     *
+     * @param metaObject
+     * @param fieldName
+     * @param fieldVal
+     * @return
+     */
+    @Override
+    public MetaObjectHandler strictFillStrategy(MetaObject metaObject, String fieldName, Supplier<Object> fieldVal) {
+        Object obj = fieldVal.get();
+        if (Objects.nonNull(obj)) {
+            metaObject.setValue(fieldName, obj);
+        }
+        return this;
     }
 }

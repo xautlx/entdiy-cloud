@@ -19,5 +19,8 @@ public class DepartmentMapperTest extends SpringBootTransactionalTest {
     public void save() {
         Department entity = MockEntityUtils.buildMockObject(Department.class);
         departmentMapper.insert(entity);
+
+        entity.setCode("updated");
+        departmentMapper.updateById(entity);
     }
 }
