@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @ExcelIgnoreUnannotated
 @MappedSuperclass
-public abstract class BaseVersionEntity implements Serializable, Persistable<Long> {
+public abstract class BaseVersionEntity extends ActiveRecordModel implements Serializable, Persistable<Long> {
 
     @Id
     @TableId(type = IdType.ASSIGN_ID)

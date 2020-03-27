@@ -12,7 +12,6 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.beans.Transient;
-import java.time.LocalDateTime;
 
 /**
  * 实体对象基类
@@ -21,6 +20,9 @@ import java.time.LocalDateTime;
 @ExcelIgnoreUnannotated
 @MappedSuperclass
 public abstract class BaseEntity extends BaseVersionEntity implements LogicDeletePersistable, TenantPersistable<Long> {
+
+    public final static String CREATED_AUDIT_DATA_COLUMN_NAME = "created_audit_data";
+    public final static String UPDATED_AUDIT_DATA_COLUMN_NAME = "updated_audit_data";
 
     @TableField(value = TenantPersistable.TENANT_ID_COLUMN_NAME, insertStrategy = FieldStrategy.NOT_NULL, updateStrategy = FieldStrategy.NEVER)
     @Column(nullable = true, name = TenantPersistable.TENANT_ID_COLUMN_NAME, updatable = false)
@@ -35,50 +37,17 @@ public abstract class BaseEntity extends BaseVersionEntity implements LogicDelet
     @JsonIgnore
     private Byte logicDeleted;
 
-    @TableField(value = "created_by", fill = FieldFill.INSERT, select = false)
-    @ApiModelProperty(value = "创建操作用户标识", notes = "如记录OAuth2中username信息", hidden = true)
-    @Column(length = 128)
+    @TableField(value = CREATED_AUDIT_DATA_COLUMN_NAME, fill = FieldFill.INSERT, select = false)
+    @ApiModelProperty(value = "创建操作审计信息", notes = "JSON字符串", hidden = true)
+    @Column(length = 512)
     @JsonIgnore
-    private String createdBy;
+    private String createdAuditData;
 
-    @TableField(value = "created_at", fill = FieldFill.INSERT)
-    @ApiModelProperty(name = "更新操作时间", hidden = true)
-    private LocalDateTime createdAt;
-
-    @TableField(value = "created_from", fill = FieldFill.INSERT, select = false)
-    @ApiModelProperty(name = "创建操作来源", notes = "如记录OAuth2中client_id信息", hidden = true)
-    @Column(length = 128)
+    @TableField(value = UPDATED_AUDIT_DATA_COLUMN_NAME, fill = FieldFill.INSERT_UPDATE, select = false)
+    @ApiModelProperty(name = "更新操作审计信息", notes = "JSON字符串", hidden = true)
+    @Column(length = 512)
     @JsonIgnore
-    private String createdFrom;
-
-    @TableField(value = "created_ip", fill = FieldFill.INSERT, select = false)
-    @ApiModelProperty(value = "创建操作来源IP", hidden = true)
-    @Column(length = 64)
-    @JsonIgnore
-    private String createdIp;
-
-    @TableField(value = "updated_by", fill = FieldFill.INSERT_UPDATE, select = false)
-    @ApiModelProperty(name = "更新操作用户标识", notes = "如记录OAuth2中username信息", hidden = true)
-    @Column(length = 128)
-    @JsonIgnore
-    private String updatedBy;
-
-    @TableField(value = "updated_at", fill = FieldFill.INSERT_UPDATE, select = false)
-    @ApiModelProperty(name = "更新操作时间", hidden = true)
-    @JsonIgnore
-    private LocalDateTime updatedAt;
-
-    @TableField(value = "updated_from", fill = FieldFill.INSERT_UPDATE, select = false)
-    @ApiModelProperty(name = "更新操作来源", notes = "如记录OAuth2中client_id信息", hidden = true)
-    @Column(length = 128)
-    @JsonIgnore
-    private String updatedFrom;
-
-    @TableField(value = "updated_ip", fill = FieldFill.INSERT_UPDATE, select = false)
-    @ApiModelProperty(value = "更新操作来源IP", hidden = true)
-    @Column(length = 64)
-    @JsonIgnore
-    private String updatedIp;
+    private String updatedAuditData;
 
     /**
      * 拷贝克隆创建对象重置相关审计属性
@@ -88,13 +57,7 @@ public abstract class BaseEntity extends BaseVersionEntity implements LogicDelet
     public void resetForCopy() {
         this.setId(null);
         this.setVersion(1);
-        this.setCreatedAt(null);
-        this.setCreatedBy(null);
-        this.setCreatedFrom(null);
-        this.setCreatedIp(null);
-        this.setUpdatedAt(null);
-        this.setUpdatedBy(null);
-        this.setUpdatedFrom(null);
-        this.setUpdatedIp(null);
+        this.setCreatedAuditData(null);
+        this.setUpdatedAuditData(null);
     }
 }

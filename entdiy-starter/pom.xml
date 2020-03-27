@@ -18,7 +18,9 @@
 
     <modules>
         <module>entdiy-starter-logger</module>
+        <module>entdiy-starter-test</module>
         <module>entdiy-starter-redis</module>
+        <module>entdiy-starter-mybatisplus</module>
     </modules>
 
 </project>

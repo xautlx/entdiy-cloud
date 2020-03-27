@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>entdiy-mdm</artifactId>
+        <artifactId>entdiy-common</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entdiy-mdm-server</artifactId>
+    <artifactId>entdiy-starter-mybatisplus</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} project for Spring Boot</description>
@@ -17,26 +17,25 @@
     <dependencies>
         <dependency>
             <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-mdm-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-crud</artifactId>
             <version>1.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-starter-mybatisplus</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-starter-test</artifactId>
-            <version>1.0.0</version>
-            <scope>test</scope>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <!-- http://projectlombok.org/ -->
