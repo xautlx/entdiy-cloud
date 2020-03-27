@@ -1,6 +1,8 @@
 package com.entdiy.common.exception;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 public class ErrorCodeException extends RuntimeException {
 
@@ -20,9 +22,19 @@ public class ErrorCodeException extends RuntimeException {
         this.errorCode = errorCode.getCode();
     }
 
+    public ErrorCodeException(String errorCode, String message) {
+        Assert.isTrue(StringUtils.isNotEmpty(message), "Error message required");
+        this.errorCode = errorCode;
+    }
+
     public ErrorCodeException(ErrorCodeEnum errorCode, Throwable cause) {
         super(errorCode.getMessage(), cause);
         this.errorCode = errorCode.getCode();
+    }
+
+    public ErrorCodeException(String errorCode, String message, Throwable cause) {
+        super(message, cause);
+        this.errorCode = errorCode;
     }
 
     public ErrorCodeException skipLog() {

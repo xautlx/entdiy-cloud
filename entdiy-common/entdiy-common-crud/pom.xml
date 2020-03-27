@@ -39,11 +39,14 @@
 
         <!-- 基于JPA一些标准注解进行定义扩展 -->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.2.Final</version>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

@@ -5,7 +5,8 @@ import lombok.Getter;
 
 public enum ErrorCodeEnum implements CodeMessageBean {
 
-    ERROR("500", "Internal Server Error");
+    Error("500", "Internal Server Error"),
+    Validation("800", "Validation Error");
 
     @Getter
     private String code;

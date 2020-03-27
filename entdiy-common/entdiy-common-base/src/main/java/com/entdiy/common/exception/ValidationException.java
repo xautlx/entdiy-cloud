@@ -11,6 +11,11 @@ public class ValidationException extends ErrorCodeException {
         skipLog();
     }
 
+    public ValidationException(String errorCode, String message) {
+        super(errorCode, message);
+        skipLog();
+    }
+
     public ValidationException(ErrorCodeEnum errorCode, Throwable cause) {
         super(errorCode, cause);
         skipLog();
