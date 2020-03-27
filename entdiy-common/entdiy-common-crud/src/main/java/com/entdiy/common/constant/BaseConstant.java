@@ -2,6 +2,8 @@ package com.entdiy.common.constant;
 
 public class BaseConstant {
 
+    public static final String EmptyString = "";
+
     public final static long DEFAULT_EXPORT_LIMIT_SIZE = 1000;
 
     public static final String AuthorizationServerCacheManager = "authorizationServerRedisCacheManager";

@@ -50,7 +50,7 @@ public class MockEntityUtils {
         X x = null;
         try {
             x = clazz.getDeclaredConstructor().newInstance();
-            for (Method method : clazz.getMethods()) {
+            for (Method method : clazz.getDeclaredMethods()) {
                 String mn = method.getName();
                 if (mn.startsWith("set")) {
                     Class[] parameters = method.getParameterTypes();
