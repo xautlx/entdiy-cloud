@@ -17,7 +17,8 @@ import java.io.Serializable;
 @Data
 @ExcelIgnoreUnannotated
 @MappedSuperclass
-public abstract class BaseVersionEntity extends ActiveRecordModel implements Serializable, Persistable<Long> {
+public abstract class BaseIdVersionEntity extends ActiveRecordModel implements Serializable, Persistable<Long> {
+
 
     @Id
     @TableId(type = IdType.ASSIGN_ID)
@@ -32,10 +33,6 @@ public abstract class BaseVersionEntity extends ActiveRecordModel implements Ser
     @Column(nullable = false)
     @ApiModelProperty(value = "乐观锁版本", hidden = true)
     private Integer version;
-
-    @Column(nullable = false)
-    @ApiModelProperty(value = "禁用标识", notes = "禁用项目用户端不显示")
-    private Boolean disabled = Boolean.FALSE;
 
     @Override
     @javax.persistence.Transient

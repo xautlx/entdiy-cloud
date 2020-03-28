@@ -9,7 +9,7 @@ spring:
   datasource:
     # 设置P6Spy驱动，以获得SQL打印监控功能
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://103.120.227.84:3306/xuemei_mdm
+    url: jdbc:p6spy:mysql://dev.entdiy.com:3306/entdiy-mdm?useUnicode=true&characterEncoding=utf-8
   cloud:
     nacos:
       discovery:

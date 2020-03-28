@@ -22,20 +22,13 @@
         </dependency>
         <dependency>
             <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-common-crud</artifactId>
-            <version>1.0.0</version>
+            <artifactId>entdiy-starter-server</artifactId>
+            <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-starter-mybatisplus</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-test</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

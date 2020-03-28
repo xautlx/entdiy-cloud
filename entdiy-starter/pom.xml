@@ -11,7 +11,6 @@
 
     <groupId>com.entdiy</groupId>
     <artifactId>entdiy-starter</artifactId>
-    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} project for Spring Boot</description>
@@ -19,8 +18,11 @@
     <modules>
         <module>entdiy-starter-logger</module>
         <module>entdiy-starter-test</module>
+        <module>entdiy-starter-support</module>
         <module>entdiy-starter-redis</module>
         <module>entdiy-starter-mybatisplus</module>
+        <module>entdiy-starter-web</module>
+        <module>entdiy-starter-server</module>
     </modules>
 
 </project>

@@ -8,9 +8,8 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://103.120.227.84:3306/xuemei_mdm_v5.5
-    username: developer
-    password: 123456
+    url: jdbc:mysql://dev.entdiy.com:3306/entdiy-mdm?useUnicode=true&characterEncoding=utf-8
+    username: root
   redis:
     host: 103.120.227.84
     port: 6379

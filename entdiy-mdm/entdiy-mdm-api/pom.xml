@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-base</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- http://projectlombok.org/ -->

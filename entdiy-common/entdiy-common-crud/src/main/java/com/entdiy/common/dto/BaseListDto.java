@@ -1,6 +1,6 @@
 package com.entdiy.common.dto;
 
-import com.entdiy.common.entity.BaseVersionEntity;
+import com.entdiy.common.entity.BaseIdVersionEntity;
 
-public class BaseListDto extends BaseVersionEntity {
+public class BaseListDto extends BaseIdVersionEntity {
 }

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.entdiy.boot.autoconfigure.web.WebMvcAutoConfiguration

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>entdiy-common</artifactId>
+        <artifactId>entdiy-starter</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,12 +18,12 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-crud</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-logger</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
