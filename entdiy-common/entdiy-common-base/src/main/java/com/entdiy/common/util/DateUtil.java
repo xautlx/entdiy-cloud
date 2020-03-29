@@ -3,12 +3,9 @@ package com.entdiy.common.util;
 import com.entdiy.common.exception.Validation;
 import com.entdiy.common.web.AppContextHolder;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
-public class DateUtils {
+public class DateUtil {
 
     private static LocalDateTime currentDateTime;
 
@@ -36,20 +33,5 @@ public class DateUtils {
         } else {
             return LocalDateTime.now();
         }
-    }
-
-    /**
-     * 蒋Date类型转换为LocalDateTime用于兼容处理一些低版本API组件
-     *
-     * @param date
-     * @return
-     */
-    public static LocalDateTime convertDateToLocalDateTime(Date date) {
-        if (date == null) {
-            return null;
-        }
-        Instant instant = date.toInstant();
-        ZoneId zone = ZoneId.systemDefault();
-        return LocalDateTime.ofInstant(instant, zone);
     }
 }

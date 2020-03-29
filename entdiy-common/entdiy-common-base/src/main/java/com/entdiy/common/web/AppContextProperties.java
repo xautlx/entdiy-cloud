@@ -1,15 +1,15 @@
 package com.entdiy.common.web;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Setter
-@Getter
+@Slf4j
+@Data
 @Component
 @ConfigurationProperties(prefix = "app.context")
 public class AppContextProperties {
@@ -27,5 +27,6 @@ public class AppContextProperties {
     @PostConstruct
     public void init() {
         AppContextHolder.setAppContextProperties(this);
+        log.info("Running at: {}", this);
     }
 }

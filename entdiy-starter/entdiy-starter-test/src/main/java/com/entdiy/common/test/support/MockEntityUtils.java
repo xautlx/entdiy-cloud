@@ -1,6 +1,6 @@
 package com.entdiy.common.test.support;
 
-import com.entdiy.common.util.DateUtils;
+import com.entdiy.common.util.DateUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Data;
@@ -80,9 +80,9 @@ public class MockEntityUtils {
                             } else if (parameter.isAssignableFrom(Date.class)) {
                                 throw new RuntimeException("Please use LocalData to instead Date.");
                             } else if (parameter.isAssignableFrom(LocalDate.class)) {
-                                value = DateUtils.currentDateTime().toLocalDate();
+                                value = DateUtil.currentDateTime().toLocalDate();
                             } else if (parameter.isAssignableFrom(LocalDateTime.class)) {
-                                value = DateUtils.currentDateTime();
+                                value = DateUtil.currentDateTime();
                             } else if (parameter.isAssignableFrom(BigDecimal.class)) {
                                 value = new BigDecimal(10 + new Double(new Random().nextDouble() * 1000).intValue());
                             } else if (parameter.isAssignableFrom(Integer.class)) {

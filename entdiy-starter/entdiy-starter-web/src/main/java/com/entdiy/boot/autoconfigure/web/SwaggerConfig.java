@@ -2,6 +2,7 @@ package com.entdiy.boot.autoconfigure.web;
 
 import com.entdiy.common.constant.CurdConstant;
 import com.entdiy.common.web.AppContextHolder;
+import com.entdiy.common.web.AppContextProperties;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -20,6 +21,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +30,18 @@ import java.util.List;
 @Profile({"local", "dev", "test"})
 public class SwaggerConfig {
 
+    @Resource
+    private AppContextProperties appContextProperties;
+
     @Bean
     public Docket createOpenApi() {
         ApiInfo apiInfo = new ApiInfoBuilder()
                 //页面标题
-                .title(AppContextHolder.getSystemName() + " Restful API")
+                .title(appContextProperties.getSystemName() + " Restful API")
                 //创建人
                 .contact(new Contact("Li Xia", "", "xautlx@hotmail.com"))
                 //版本号
-                .version(AppContextHolder.getBuildVersion())
+                .version(appContextProperties.getBuildVersion())
                 //描述
                 .description("外部接口")
                 .build();
