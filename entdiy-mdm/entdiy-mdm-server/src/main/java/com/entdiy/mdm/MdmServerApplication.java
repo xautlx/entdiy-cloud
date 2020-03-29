@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @EnableCaching
-@MapperScan("com.entdiy.mdm")
+@MapperScan("com.entdiy")
 public class MdmServerApplication {
 
     public static void main(String[] args) {

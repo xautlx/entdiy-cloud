@@ -25,6 +25,13 @@ public class ViewResult<T> {
         return that;
     }
 
+    public static <T> ViewResult success(T data) {
+        ViewResult that = new ViewResult();
+        that.setSuccess(true);
+        that.setData(data);
+        return that;
+    }
+
     public static ViewResult success(CodeMessageBean codeMessage) {
         ViewResult that = success();
         that.setCode(codeMessage.getCode());

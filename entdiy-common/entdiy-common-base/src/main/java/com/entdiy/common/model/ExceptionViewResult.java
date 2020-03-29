@@ -1,5 +1,6 @@
 package com.entdiy.common.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,7 @@ public class ExceptionViewResult<T> extends ViewResult<T> {
      * 此属性值为可选项，如参数校验类异常不做日志记录，此时不生成eid属性值。
      */
     private String eid;
+
+    @JsonIgnore
+    private boolean skipLog = false;
 }

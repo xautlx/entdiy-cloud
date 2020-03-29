@@ -1,8 +1,20 @@
 package com.entdiy.common.constant;
 
-public class BaseConstant {
+import lombok.Getter;
 
-    public static final String EmptyString = "";
+public class CurdConstant {
+
+    public enum UriPrefix {
+
+        API("/api"), RPC("/rpc");
+
+        @Getter
+        private String prefix;
+
+        UriPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+    }
 
     public final static long DEFAULT_EXPORT_LIMIT_SIZE = 1000;
 

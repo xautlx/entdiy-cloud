@@ -25,10 +25,19 @@
             <artifactId>entdiy-starter-support</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-common-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
         </dependency>
 
         <dependency>
