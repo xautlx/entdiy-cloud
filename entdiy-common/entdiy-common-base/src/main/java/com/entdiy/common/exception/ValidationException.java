@@ -6,18 +6,13 @@ package com.entdiy.common.exception;
  */
 public class ValidationException extends ErrorCodeException {
 
-    public ValidationException(ErrorCodeEnum errorCode) {
-        super(errorCode);
+    public ValidationException(String code, String message) {
+        super(code, message);
         skipLog();
     }
 
-    public ValidationException(String errorCode, String message) {
-        super(errorCode, message);
-        skipLog();
-    }
-
-    public ValidationException(ErrorCodeEnum errorCode, Throwable cause) {
-        super(errorCode, cause);
+    public ValidationException(String code, String message, Throwable cause) {
+        super(code, message, cause);
         skipLog();
     }
 }

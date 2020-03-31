@@ -5,9 +5,7 @@ import com.entdiy.common.dto.BaseTreeListDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @see com.entdiy.mdm.entity.Department
- */
+
 @Data
 public class DepartmentListDto extends BaseTreeListDto {
 

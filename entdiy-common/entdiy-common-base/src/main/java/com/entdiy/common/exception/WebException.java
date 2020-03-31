@@ -5,11 +5,11 @@ package com.entdiy.common.exception;
  */
 public class WebException extends ErrorCodeException {
 
-    public WebException(ErrorCodeEnum errorCode) {
-        super(errorCode);
+    public WebException(String code, String message) {
+        super(code, message);
     }
 
-    public WebException(ErrorCodeEnum errorCode, Throwable cause) {
-        super(errorCode, cause);
+    public WebException(String code, String message, Throwable cause) {
+        super(code, message, cause);
     }
 }

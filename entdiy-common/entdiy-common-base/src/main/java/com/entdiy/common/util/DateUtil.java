@@ -1,7 +1,7 @@
 package com.entdiy.common.util;
 
 import com.entdiy.common.exception.Validation;
-import com.entdiy.common.web.AppContextHolder;
+import com.entdiy.common.web.ApplicationContextHolder;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ public class DateUtil {
     private static LocalDateTime currentDateTime;
 
     public static void setCurrentDateTime(LocalDateTime localDateTime) {
-        Validation.isTrue(AppContextHolder.isDevMode() || AppContextHolder.isDemoMode(), "当前操作只能在开发演示运行模式才可用");
+        Validation.isTrue(ApplicationContextHolder.isDevMode() || ApplicationContextHolder.isDemoMode(), "当前操作只能在开发演示运行模式才可用");
         if (localDateTime == null) {
             currentDateTime = null;
         } else {
@@ -28,7 +28,7 @@ public class DateUtil {
         if (currentDateTime == null) {
             return LocalDateTime.now();
         }
-        if (AppContextHolder.isDevMode() || AppContextHolder.isDemoMode()) {
+        if (ApplicationContextHolder.isDevMode() || ApplicationContextHolder.isDemoMode()) {
             return currentDateTime;
         } else {
             return LocalDateTime.now();

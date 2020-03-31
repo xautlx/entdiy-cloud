@@ -1,8 +1,8 @@
 package com.entdiy.common.mapper;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.entdiy.common.auth.AuthDataHolder;
-import com.entdiy.common.constant.BaseConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
@@ -20,7 +20,7 @@ public class MybatisMetaObjectHandler implements MetaObjectHandler {
         log.debug("Start mybatis plus insert fill ....");
         AuthDataHolder.AuthData authData = AuthDataHolder.get();
         this.strictInsertFill(metaObject, "createdAuditData", String.class, "CREATED:TODO");
-        this.strictInsertFill(metaObject, "updatedAuditData", String.class, BaseConstant.EmptyString);
+        this.strictInsertFill(metaObject, "updatedAuditData", String.class, StrUtil.EMPTY);
         this.strictInsertFill(metaObject, "version", Integer.class, VERSION_INIT);
         this.strictInsertFill(metaObject, "logicDeleted", Byte.class, LOGIC_DELETE_INIT);
     }

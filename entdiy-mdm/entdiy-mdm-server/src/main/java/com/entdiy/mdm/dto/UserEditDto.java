@@ -4,9 +4,6 @@ import com.entdiy.common.dto.BaseEditDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @see com.entdiy.mdm.entity.User
- */
 @Data
 public class UserEditDto extends BaseEditDto {
 

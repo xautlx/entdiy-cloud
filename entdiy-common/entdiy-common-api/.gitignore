@@ -30,9 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
+rebel.xml
+
 ### Mac Cache File ###
 *.DS_Store
-
-### Dev Tool ###
-rebel.xml
-src/main/test/

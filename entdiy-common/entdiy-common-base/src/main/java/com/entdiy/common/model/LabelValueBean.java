@@ -2,8 +2,11 @@ package com.entdiy.common.model;
 
 public interface LabelValueBean {
 
+    String getCode();
+
     String getLabel();
 
-    Integer getCode();
-
+    default Object[] getParams() {
+        return null;
+    }
 }

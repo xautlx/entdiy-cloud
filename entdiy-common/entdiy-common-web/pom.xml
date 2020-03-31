@@ -18,7 +18,12 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-base</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-common-crud</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -67,11 +72,6 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
         </dependency>
 
         <!-- http://projectlombok.org/ -->

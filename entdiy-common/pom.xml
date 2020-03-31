@@ -16,7 +16,9 @@
 
     <modules>
         <module>entdiy-common-base</module>
+        <module>entdiy-common-api</module>
         <module>entdiy-common-crud</module>
+        <module>entdiy-common-web</module>
     </modules>
 
 </project>

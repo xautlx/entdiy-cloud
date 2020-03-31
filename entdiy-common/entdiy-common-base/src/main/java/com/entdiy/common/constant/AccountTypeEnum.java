@@ -1,9 +1,9 @@
 package com.entdiy.common.constant;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.entdiy.common.model.LabelValueBean;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.entdiy.common.model.LabelValueBean;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
@@ -13,14 +13,14 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum AccountTypeEnum implements LabelValueBean {
 
-    SYSTEM(1, "系统", true),
-    EMAIL(2, "邮件", true),
-    MOBILE(4, "手机", true),
-    WECHAT(8, "微信", false);
+    SYSTEM("系统", true),
+    EMAIL("邮件", true),
+    MOBILE("手机", true),
+    WECHAT("微信", false);
 
     @EnumValue
     @Getter
-    private Integer code;
+    private String code;
 
     @Getter
     private String label;
@@ -29,8 +29,14 @@ public enum AccountTypeEnum implements LabelValueBean {
     @Getter
     private Boolean manageable;
 
+    AccountTypeEnum(String label, Boolean manageable) {
+        this.code = this.name();
+        this.label = label;
+        this.manageable = manageable;
+    }
+
     @JsonCreator
-    AccountTypeEnum(Integer code, String label, Boolean manageable) {
+    AccountTypeEnum(String code, String label, Boolean manageable) {
         this.code = code;
         this.label = label;
         this.manageable = manageable;

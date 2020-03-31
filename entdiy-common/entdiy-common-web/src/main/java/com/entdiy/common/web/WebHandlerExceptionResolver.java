@@ -1,9 +1,9 @@
 package com.entdiy.common.web;
 
 import com.entdiy.common.auth.AuthDataHolder;
-import com.entdiy.common.exception.ErrorCodeEnum;
 import com.entdiy.common.exception.ErrorCodeException;
-import com.entdiy.common.model.ExceptionViewResult;
+import com.entdiy.common.model.ResultCodeEnum;
+import com.entdiy.common.model.ViewResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +50,7 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
         return mv;
     }
 
-    private ExceptionViewResult processExceptionViewResult(ExceptionViewResult exceptionViewResult, Exception e) {
+    private ViewResult processExceptionViewResult(ViewResult exceptionViewResult, Exception e) {
         if (!exceptionViewResult.isSkipLog()) {
             String eid = "ERR" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + RandomStringUtils.randomNumeric(3);
             exceptionViewResult.setEid(eid);
@@ -60,15 +60,14 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
     }
 
 
-    public ExceptionViewResult buildExceptionViewResult(HttpServletRequest request, Exception e) {
+    public ViewResult buildExceptionViewResult(HttpServletRequest request, Exception e) {
 
-        ExceptionViewResult exceptionViewResult = new ExceptionViewResult();
-        exceptionViewResult.setSuccess(false);
+        ViewResult exceptionViewResult = new ViewResult();
         Throwable[] causeChain = throwableAnalyzer.determineCauseChain(e);
         ErrorCodeException ece = (ErrorCodeException) throwableAnalyzer.getFirstThrowableOfType(ErrorCodeException.class, causeChain);
         if (ece != null) {
             exceptionViewResult.setSkipLog(ece.isSkipLog());
-            exceptionViewResult.setCode(ece.getErrorCode());
+            exceptionViewResult.setCode(ece.getCode());
             exceptionViewResult.setMessage(ece.getMessage());
             return processExceptionViewResult(exceptionViewResult, e);
         }
@@ -96,7 +95,7 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
         AccessDeniedException ade = (AccessDeniedException) throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
         if (ade != null) {
             exceptionViewResult.setSkipLog(false);
-            exceptionViewResult.setCode(ErrorCodeEnum.AccessDenied.getCode());
+            exceptionViewResult.setCode(ResultCodeEnum.AccessDenied.getCode());
             exceptionViewResult.setMessage(ade.getMessage());
             return processExceptionViewResult(exceptionViewResult, e);
         }
@@ -104,7 +103,7 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
         DataTruncation dataTruncation = (DataTruncation) throwableAnalyzer.getFirstThrowableOfType(DataTruncation.class, causeChain);
         if (dataTruncation != null) {
             exceptionViewResult.setSkipLog(true);
-            exceptionViewResult.setCode(ErrorCodeEnum.DataConstraint.getCode());
+            exceptionViewResult.setCode(ResultCodeEnum.DataConstraint.getCode());
             exceptionViewResult.setMessage("提交数据内容过长，请检查修正");
             return processExceptionViewResult(exceptionViewResult, e);
         }
@@ -114,7 +113,7 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
             String message = sqle.getMessage();
             if (message.startsWith("Duplicate")) {
                 exceptionViewResult.setSkipLog(false);
-                exceptionViewResult.setCode(ErrorCodeEnum.DataConstraint.getCode());
+                exceptionViewResult.setCode(ResultCodeEnum.DataConstraint.getCode());
                 exceptionViewResult.setMessage("提交数据已存在，请检查修正");
                 return processExceptionViewResult(exceptionViewResult, e);
             }
@@ -122,7 +121,7 @@ public class WebHandlerExceptionResolver implements HandlerExceptionResolver {
 
         String message = log.isDebugEnabled() && StringUtils.isNotEmpty(e.getMessage()) ? e.getMessage() : "系统处理异常";
         exceptionViewResult.setSkipLog(false);
-        exceptionViewResult.setCode(ErrorCodeEnum.DataConstraint.getCode());
+        exceptionViewResult.setCode(ResultCodeEnum.DataConstraint.getCode());
         exceptionViewResult.setMessage(message);
         return processExceptionViewResult(exceptionViewResult, e);
     }

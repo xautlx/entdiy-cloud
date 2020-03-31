@@ -9,19 +9,19 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum GenderEnum implements LabelValueBean {
 
-    MALE(1, "男"),
-    FEMALE(2, "女"),
-    PRIVACY(4, "保密");
+    MALE("M", "男"),
+    FEMALE("F", "女"),
+    PRIVACY("P", "保密");
 
     @EnumValue
     @Getter
-    private Integer code;
+    private String code;
 
     @Getter
     private String label;
 
     @JsonCreator
-    GenderEnum(Integer code, String label) {
+    GenderEnum(String code, String label) {
         this.code = code;
         this.label = label;
     }

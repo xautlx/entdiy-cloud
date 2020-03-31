@@ -11,8 +11,8 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Data
 @Component
-@ConfigurationProperties(prefix = "app.context")
-public class AppContextProperties {
+@ConfigurationProperties(prefix = "application.context")
+public class ApplicationContextProperties {
 
     @ApiModelProperty(value = "开发模式", notes = "更宽松的权限控制，更多的日志信息。详见application.properties配置参数定义")
     private boolean devMode;
@@ -26,7 +26,7 @@ public class AppContextProperties {
 
     @PostConstruct
     public void init() {
-        AppContextHolder.setAppContextProperties(this);
+        //ApplicationContextHolder.setAppContextProperties(this);
         log.info("Running at: {}", this);
     }
 }

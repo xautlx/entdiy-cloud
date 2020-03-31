@@ -5,9 +5,6 @@ import com.entdiy.common.dto.BaseListDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @see com.entdiy.mdm.entity.User
- */
 @Data
 public class UserListDto extends BaseListDto {
 
@@ -32,6 +29,5 @@ public class UserListDto extends BaseListDto {
     @ApiModelProperty(value = "所属部门")
     @ExcelProperty(value = "所属部门")
     private Long departmentId;
-
 
 }

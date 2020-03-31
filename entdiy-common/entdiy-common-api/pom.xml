@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>entdiy-mdm</artifactId>
+        <artifactId>entdiy-common</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entdiy-mdm-api</artifactId>
+    <artifactId>entdiy-common-api</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} project for Spring Boot</description>
@@ -17,13 +17,8 @@
     <dependencies>
         <dependency>
             <groupId>com.entdiy</groupId>
-            <artifactId>entdiy-common-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
+            <artifactId>entdiy-common-base</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- http://projectlombok.org/ -->

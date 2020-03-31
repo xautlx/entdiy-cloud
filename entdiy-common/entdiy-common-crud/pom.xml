@@ -69,11 +69,6 @@
             <artifactId>swagger-models</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-        </dependency>
-
         <!-- http://projectlombok.org/ -->
         <dependency>
             <groupId>org.projectlombok</groupId>

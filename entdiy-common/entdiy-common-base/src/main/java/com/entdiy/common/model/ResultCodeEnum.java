@@ -2,9 +2,13 @@ package com.entdiy.common.model;
 
 import lombok.Getter;
 
-public enum ResultCodeEnum implements CodeMessageBean {
+public enum ResultCodeEnum {
 
-    OK("200", "Success");
+    OK("200", "OK"),
+    Error("500", "Internal Server Error"),
+    Validation("800", "Validation Error"),
+    DataConstraint("810", "Database Data Constraint Error"),
+    AccessDenied("401", "Access Denied");
 
     @Getter
     private String code;
