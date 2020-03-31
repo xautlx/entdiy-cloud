@@ -2,8 +2,10 @@ package com.entdiy.boot.autoconfigure.web;
 
 import com.entdiy.common.web.ApplicationContextHolder;
 import com.entdiy.common.web.WebHandlerExceptionResolver;
+import com.entdiy.common.web.databind.resolver.EditDtoDataBinderArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,4 +29,8 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
         resolvers.add(0, new WebHandlerExceptionResolver());
     }
 
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new EditDtoDataBinderArgumentResolver());
+    }
 }

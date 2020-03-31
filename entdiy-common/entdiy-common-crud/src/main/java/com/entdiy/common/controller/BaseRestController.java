@@ -6,11 +6,10 @@ import com.entdiy.common.entity.BaseEntity;
 import com.entdiy.common.service.BaseService;
 
 public abstract class BaseRestController<
-        M extends BaseService<T>,
+        M extends BaseService<T, EDTO>,
         T extends BaseEntity,
         EDTO extends BaseEditDto,
-        LDTO extends BaseListDto> extends BaseController {
-
+        LDTO extends BaseListDto> extends BaseController<M, T, EDTO, LDTO> {
 
 
 }

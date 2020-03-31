@@ -1,6 +1,7 @@
 package com.entdiy.mdm.service;
 
 import com.entdiy.common.service.BaseService;
+import com.entdiy.mdm.dto.DepartmentEditDto;
 import com.entdiy.mdm.entity.Department;
 
 /**
@@ -11,6 +12,6 @@ import com.entdiy.mdm.entity.Department;
  * @author Li Xia
  * @since 2020-03-20
  */
-public interface IDepartmentService extends BaseService<Department> {
+public interface IDepartmentService extends BaseService<Department, DepartmentEditDto> {
 
 }

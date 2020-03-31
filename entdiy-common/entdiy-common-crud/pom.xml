@@ -18,7 +18,12 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-base</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-common-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -74,6 +79,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
         </dependency>
     </dependencies>
 </project>

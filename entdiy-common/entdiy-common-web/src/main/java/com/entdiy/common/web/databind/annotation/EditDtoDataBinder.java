@@ -1,4 +1,4 @@
-package com.entdiy.common.databind.annotation;
+package com.entdiy.common.web.databind.annotation;
 
 
 import java.lang.annotation.*;

@@ -99,6 +99,7 @@
                     <compilerArgs>
                         <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
                         <arg>-Amapstruct.defaultComponentModel=spring</arg>
+                        <arg>-Amapstruct.nullValuePropertyMappingStrategy=IGNORE</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
