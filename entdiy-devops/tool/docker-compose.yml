@@ -1,10 +1,28 @@
-version: '3.7'
+version: '3'
 services:
-  tomcat:
-    image: tomcat
+  docker_registery:
+    image: registry:2
+    user: root
     ports:
-      - 8080:8080
-    network_mode: host
-networks:
-  frontend:
-  backend:
+      - 5000:5000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ${BASE_DIR}/data/docker-registery:/var/lib/registry
+    privileged: true
+    restart: always
+  jenkins:
+    image: jenkins/jenkins:jdk11
+    user: root
+    ports:
+      - 9000:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ${BASE_DIR}/data/jenkins:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
+    privileged: true
+    restart: always
+    links:
+      - docker_registery
