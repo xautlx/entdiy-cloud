@@ -4,9 +4,7 @@ services:
     image: tomcat
     ports:
       - 8080:8080
-    networks:
-      - frontend
-      - backend
+    network_mode: host
 networks:
   frontend:
   backend:
