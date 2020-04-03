@@ -1,6 +1,6 @@
 version: '2'
 services:
-  docker-registery:
+  docker_registery:
     image: registry:2
     user: root
     ports:
@@ -25,4 +25,7 @@ services:
     privileged: true
     restart: always
     links:
-      - docker-registery
+      - docker_registery
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
