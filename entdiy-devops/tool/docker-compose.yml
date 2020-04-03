@@ -4,3 +4,11 @@ services:
     image: tomcat
     ports:
       - 8080:8080
+    networks:
+      - front
+      - back
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
