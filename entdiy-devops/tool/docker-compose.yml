@@ -1,6 +1,8 @@
 version: '3'
 services:
   docker_registery:
+    networks:
+      - default
     image: registry:2
     user: root
     ports:
@@ -12,6 +14,8 @@ services:
     privileged: true
     restart: always
   jenkins:
+    networks:
+      - default
     image: jenkins/jenkins:jdk11
     user: root
     ports:
