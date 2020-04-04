@@ -7,4 +7,4 @@ echo "Using BASE_DIR: ${BASE_DIR}"
 
 mkdir -p ${BASE_DIR}/data
 
-docker-compose $*
+docker-compose -f ${BASE_DIR}/docker-compose.yml $*
