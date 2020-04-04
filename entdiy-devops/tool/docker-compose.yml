@@ -25,4 +25,4 @@ services:
     privileged: true
     restart: always
     links:
-      - docker_registery: docker_registery
+      - docker_registery
