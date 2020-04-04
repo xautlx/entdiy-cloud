@@ -1,6 +1,6 @@
 version: '3'
 services:
-  docker_registery:
+  docker_registry:
     image: registry:2
     user: root
     ports:
@@ -11,7 +11,7 @@ services:
       - ${BASE_DIR}/data/docker-registery:/var/lib/registry
     privileged: true
     restart: always
-    hostname: docker_registery
+    hostname: docker_registry
   jenkins:
     image: jenkins/jenkins:jdk11
     user: root
@@ -27,4 +27,4 @@ services:
     restart: always
     hostname: jenkins
     links:
-      - docker_registery
+      - docker_registry
