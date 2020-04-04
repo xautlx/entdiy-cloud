@@ -11,6 +11,7 @@ services:
       - ${BASE_DIR}/data/docker-registery:/var/lib/registry
     privileged: true
     restart: always
+    hostname: docker_registery
   jenkins:
     image: jenkins/jenkins:jdk11
     user: root
@@ -24,5 +25,6 @@ services:
       - JENKINS_OPTS="--prefix=/jenkins"
     privileged: true
     restart: always
+    hostname: jenkins
     links:
       - docker_registery
