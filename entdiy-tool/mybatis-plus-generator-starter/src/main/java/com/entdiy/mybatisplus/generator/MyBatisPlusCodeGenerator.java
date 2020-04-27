@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.entdiy.common.controller.BaseRestController;
 import com.entdiy.common.mapper.BaseMyBatisMapper;
+import com.entdiy.common.model.BaseModelMapper;
 import com.entdiy.common.service.BaseService;
 import com.entdiy.common.service.BaseServiceImpl;
 import lombok.SneakyThrows;
@@ -135,6 +136,8 @@ public class MyBatisPlusCodeGenerator {
         strategy.setSuperMapperClass(BaseMyBatisMapper.class.getName());
         strategy.setSuperServiceClass(BaseService.class.getName());
         strategy.setSuperServiceImplClass(BaseServiceImpl.class.getName());
+
+        strategy.setSuperModelMapperClass(BaseModelMapper.class.getName());
 
 
 

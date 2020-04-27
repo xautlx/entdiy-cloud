@@ -15,8 +15,6 @@ public abstract class BaseServiceImpl<
 
     public abstract BaseModelMapper getEditDtoModelMapper();
 
-    public abstract BaseModelMapper getListDtoModelMapper();
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     @SneakyThrows

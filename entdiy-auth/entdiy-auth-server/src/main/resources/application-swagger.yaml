@@ -1,0 +1,43 @@
+# Based on https://gitee.com/Wilson-He/swagger2-spring-boot-starter
+swagger:
+  enabled: true
+  dockets:
+    docket-admin:
+      base-package: com.entdiy.mdm.controller.admin
+      group-name: Admin管理接口
+      api-info:
+        contact:
+          name: Li Xia
+          email: xautlx@hotmail.com
+        version: ${app.context.buildVersion}
+        title: Admin API for ${app.context.systemName}
+      global-parameters:
+        - name: Authorization
+          description: Bearer {Access Token}
+          param-type: header
+    docket-app:
+      base-package: com.entdiy.mdm.controller.app
+      group-name: APP应用接口
+      api-info:
+        contact:
+          name: Li Xia
+          email: xautlx@hotmail.com
+        version: ${app.context.buildVersion}
+        title: APP API for ${app.context.systemName}
+      global-parameters:
+        - name: Authorization
+          description: Bearer {Access Token}
+          param-type: header
+    docket-rpc:
+      base-package: com.entdiy.mdm.controller.rpc
+      group-name: RPC内部接口
+      api-info:
+        contact:
+          name: Li Xia
+          email: xautlx@hotmail.com
+        version: ${app.context.buildVersion}
+        title: RPC API for ${app.context.systemName}
+      global-parameters:
+        - name: Authorization
+          description: Bearer {Access Token}
+          param-type: header

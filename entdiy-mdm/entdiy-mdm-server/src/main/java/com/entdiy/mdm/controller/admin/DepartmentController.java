@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 部门 前端控制器
@@ -34,7 +36,7 @@ public class DepartmentController extends BaseRestController<IDepartmentService,
     private IDepartmentService baseService;
 
     @Getter
-    @Autowired
+    @Resource
     private DepartmentEditDtoMapper editDtoModelMapper;
 
     @Getter

@@ -19,6 +19,16 @@
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-mdm-server</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

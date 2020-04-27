@@ -17,6 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-starter-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-support</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -20,7 +20,6 @@
         <module>entdiy-tool</module>
         <module>entdiy-auth</module>
         <module>entdiy-starter</module>
-        <module>entdiy-mdm</module>
     </modules>
 
     <properties>
@@ -39,6 +38,8 @@
         <spring-cloud-consul.version>2.2.0.RELEASE</spring-cloud-consul.version>
         <spring-cloud-config.version>2.2.0.RELEASE</spring-cloud-config.version>
         <spring-cloud-zookeeper.version>2.2.0.RELEASE</spring-cloud-zookeeper.version>
+
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
 
         <junit.version>4.12</junit.version>
         <javax-servlet-api>3.0</javax-servlet-api>
@@ -68,14 +69,16 @@
 
     <repositories>
         <repository>
-            <id>xuemei-repos</id>
-            <name>xuemei-repos</name>
-            <url>http://maven.xuemei.tech/repository/xuemei-public/</url>
+            <id>Aliyun-repos-public</id>
+            <name>aliyun public</name>
+            <url>https://maven.aliyun.com/repository/public/</url>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -84,20 +87,11 @@
             <url>https://maven.aliyun.com/repository/spring/</url>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>Aliyun-repos-public</id>
-            <name>aliyun public</name>
-            <url>https://maven.aliyun.com/repository/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -105,42 +99,54 @@
             <name>Central Repository</name>
             <url>https://repo1.maven.org/maven2/</url>
             <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
     <pluginRepositories>
-        <pluginRepository>
-            <id>aliyun-repos-spring</id>
-            <name>aliyun spring</name>
-            <url>https://maven.aliyun.com/repository/spring/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
         <pluginRepository>
             <id>aliyun-repos-public</id>
             <name>aliyun public</name>
             <url>https://maven.aliyun.com/repository/public/</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
+                <updatePolicy>daily</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>aliyun-repos-spring</id>
+            <name>aliyun spring</name>
+            <url>https://maven.aliyun.com/repository/spring/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
@@ -463,15 +469,6 @@
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
                     <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

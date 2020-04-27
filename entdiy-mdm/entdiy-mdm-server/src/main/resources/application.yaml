@@ -4,59 +4,21 @@ server:
     context-path: /mdm
 spring:
   profiles:
-    include: server
+    include: server,swagger
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.entdiy.com:3306/entdiy-mdm?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: mysqlP@sswd123
+    url: jdbc:mysql://${params.spring.datasource.host}:${params.spring.datasource.port}/entdiy_mdm?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: entdiy_mdm
+    password: entdiy_mdm_P@ssword123
   redis:
-    host: redis.entdiy.com
-    port: 6379
+    host: ${params.spring.redis.host}
+    port: ${params.spring.redis.port}
+    password: ${params.spring.redis.password}
     database: 1
-    password: redisP@sswd123
-swagger: # Based on https://gitee.com/Wilson-He/swagger2-spring-boot-starter
-  dockets:
-    docket-admin:
-      base-package: com.entdiy.mdm.controller.admin
-      group-name: Admin管理接口
-      api-info:
-        contact:
-          name: Li Xia
-          email: xautlx@hotmail.com
-        version: ${app.context.buildVersion}
-        title: Admin API for ${app.context.systemName}
-      global-parameters:
-        - name: Authorization
-          description: Bearer {Access Token}
-          param-type: header
-    docket-app:
-      base-package: com.entdiy.mdm.controller.app
-      group-name: APP应用接口
-      api-info:
-        contact:
-          name: Li Xia
-          email: xautlx@hotmail.com
-        version: ${app.context.buildVersion}
-        title: APP API for ${app.context.systemName}
-      global-parameters:
-        - name: Authorization
-          description: Bearer {Access Token}
-          param-type: header
-    docket-rpc:
-      base-package: com.entdiy.mdm.controller.rpc
-      group-name: RPC内部接口
-      api-info:
-        contact:
-          name: Li Xia
-          email: xautlx@hotmail.com
-        version: ${app.context.buildVersion}
-        title: RPC API for ${app.context.systemName}
-      global-parameters:
-        - name: Authorization
-          description: Bearer {Access Token}
-          param-type: header
+
+app:
+  context:
+    systemName: "EntDIY Master Data Management"
+
 security:
   ignore-urls:
     - /rest/data/ignore

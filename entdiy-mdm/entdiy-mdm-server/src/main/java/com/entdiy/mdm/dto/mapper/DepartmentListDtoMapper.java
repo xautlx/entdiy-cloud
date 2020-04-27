@@ -5,6 +5,6 @@ import com.entdiy.mdm.dto.DepartmentListDto;
 import com.entdiy.mdm.entity.Department;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface DepartmentListDtoMapper extends BaseModelMapper<Department, DepartmentListDto> {
 }

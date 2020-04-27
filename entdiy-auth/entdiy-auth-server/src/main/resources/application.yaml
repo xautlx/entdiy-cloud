@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /auth
+spring:
+  profiles:
+    include: server,swagger
+  datasource:
+    url: jdbc:mysql://${params.spring.datasource.host}:${params.spring.datasource.port}/entdiy_mdm?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: entdiy_mdm
+    password: entdiy_mdm_P@ssword123
+  redis:
+    host: ${params.spring.redis.host}
+    port: ${params.spring.redis.port}
+    password: ${params.spring.redis.password}
+    database: 1
+
+app:
+  context:
+    systemName: "EntDIY Master Data Management"
+
+security:
+  ignore-urls:
+    - /rest/data/ignore
+    - /rpc/**/*
+  #acl-mappings:
+    #https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Configuration-Binding
+    #"[/rest/company/**/*]": "hasAnyRole('ROLE_COMPANY_USER','ROLE_COMPANY_ADMIN') or #oauth2.isClient()"
+    #"[/rest/**/*]": "hasAnyRole('ROLE_COMPANY_USER') or #oauth2.isClient()"
+  oauth2:
+    client:
+      client-id: entdiy-mdm
+      client-secret: 123456

@@ -1,0 +1,11 @@
+params:
+  spring:
+    datasource:
+      host: 192.168.3.141
+      port: 3306
+    redis:
+      host: 192.168.3.141
+      port: 6379
+      password:
+
+

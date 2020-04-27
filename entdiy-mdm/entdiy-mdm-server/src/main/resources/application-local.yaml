@@ -1,0 +1,31 @@
+server:
+  port: 8080
+app:
+  context:
+    devMode: true
+security:
+  # 本地开发环境设定一个模拟的access-token，方便反复的接口开发调试
+  #mock-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzeXN0ZW1JZCI6ImdXL2RrWDJhTXdScTNTT1JOT2VFbmNYclJJMUcwOGpOWWNuZGhoUFQ5WDVaRWlFU3Exa1FpUWk0MHlKSGtNZGgiLCJ1c2VyX25hbWUiOiJsYW93YW5nXHRcdDAiLCJhdXRoQ2xpZW50SWQiOiJ4dWVtZWktdGFzayIsInNlY3VyaXR5TW9kZSI6ZmFsc2UsInVzZXJJZCI6InlRcWJHeFNpUjBzTGkrbS9CRkdrMXgzaVlyc3huNkNJeGRUZ3phWUZEbXFRelBZTnhoWW5vVWswSXZnblk1dkQiLCJhdXRob3JpdGllcyI6WyJTdHVkZW50IiwiU3lzLUFkbWluIl0sImRvbWFpbklkIjoiZ0VQRHJucEo2dTVDU3RvbDA0Z2IrdVAyVWFyMExudUxaN1VwUms4T2dKaFYyK0xXNUZhUHRjNWRJOHBQV1Z1UyIsImNsaWVudF9pZCI6Inh1ZW1laS10YXNrIiwib3JnYW5pemF0aW9uSWQiOiIxK3NzQWZOZ1kydkR2QXl6WVBMdmViOWdmaC9DL1VoQURrelRLTW9weGN3WGNuZTVudkJjQ2JIU1dZK1k3OXNZIiwiY29tcGFueUlkIjoidVNIeHRSVEp2NGxDWUwzdGtyZG5hWDhTT3FJWXV2cCtvb25YUUR1akpRRXBiM0dsTWpKMkVoSEJMcnJQekE1ayIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJ1c2VyQWNjb3VudElkIjoieVFxYkd4U2lSMHNMaSttL0JGR2sxeDNpWXJzeG42Q0l4ZFRnemFZRkRtcVF6UFlOeGhZbm9VazBJdmduWTV2RCIsImp0aSI6IjdiYmU5NTY1LTRlYTctNGU1OC05MjcwLTRhYTkyZDcyMTRhZSJ9.sRLLOo8GKMi0MYvI79I65NH59Okmj4g0RDMMTpkIVYo
+  # superadmin
+  mock-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzeXN0ZW1JZCI6ImdXL2RrWDJhTXdScTNTT1JOT2VFbmNYclJJMUcwOGpOWWNuZGhoUFQ5WDVaRWlFU3Exa1FpUWk0MHlKSGtNZGgiLCJ1c2VyX25hbWUiOiJzdXBlcmFkbWluXHRcdHN5c3RlbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJ1c2VyQWNjb3VudElkIjoiZ1cvZGtYMmFNd1JxM1NPUk5PZUVuY1hyUkkxRzA4ak5ZY25kaGhQVDlYNDlrbkJtWTdORUhUSkFaaEdPNXhRNiIsImF1dGhDbGllbnRJZCI6Inh1ZW1laS10YXNrIiwic2VjdXJpdHlNb2RlIjpmYWxzZSwidXNlcklkIjoiZ1cvZGtYMmFNd1JxM1NPUk5PZUVuY1hyUkkxRzA4ak5ZY25kaGhQVDlYNDlrbkJtWTdORUhUSkFaaEdPNXhRNiIsImp0aSI6ImY5ZjRkZDliLWQ4NDItNDM2Yi1iZTc1LTNlYzVjMTY4YjQzNSIsImNsaWVudF9pZCI6Inh1ZW1laS10YXNrIn0.qjoTNKRBpg1GawMmwuJZWX6ygpwuJ3vAw5RtMKS1V88
+spring:
+  datasource:
+    # 设置P6Spy驱动，以获得SQL打印监控功能
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://${params.spring.datasource.host}:${params.spring.datasource.port}/entdiy_mdm?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+  cloud:
+    nacos:
+      config:
+        # 本地开发默认关闭在线配置
+        enabled: false
+      discovery:
+        # 本地开发环境设定特定的服务注册名称，避免干扰共享环境服务列表
+        service: local-${spring.application.name}
+feign:
+  client:
+    # 本地开发环境设定接口的公网访问地址，解决走Ribbon解析后无法访问共享服务问题
+    url: http://api.entdiy.com
+logging:
+  config: classpath:logback-spring-dev.xml
+  level:
+    org.springframework.cache: debug

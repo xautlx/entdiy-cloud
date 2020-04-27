@@ -3,7 +3,6 @@ package com.entdiy.mdm.service.impl;
 import com.entdiy.common.service.BaseServiceImpl;
 import com.entdiy.mdm.dto.DepartmentEditDto;
 import com.entdiy.mdm.dto.mapper.DepartmentEditDtoMapper;
-import com.entdiy.mdm.dto.mapper.DepartmentListDtoMapper;
 import com.entdiy.mdm.entity.Department;
 import com.entdiy.mdm.mapper.DepartmentMapper;
 import com.entdiy.mdm.service.IDepartmentService;
@@ -25,9 +24,5 @@ public class DepartmentServiceImpl extends BaseServiceImpl<DepartmentMapper, Dep
     @Getter
     @Autowired
     private DepartmentEditDtoMapper editDtoModelMapper;
-
-    @Getter
-    @Autowired
-    private DepartmentListDtoMapper listDtoModelMapper;
 
 }
