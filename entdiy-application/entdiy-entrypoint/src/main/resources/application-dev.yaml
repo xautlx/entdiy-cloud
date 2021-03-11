@@ -1,0 +1,31 @@
+server:
+  port: 8085
+spring:
+  profiles:
+    include: local
+  datasource:
+    # CREATE DATABASE IF NOT EXISTS  entdiy default character set utf8mb4 collate utf8mb4_unicode_ci;
+    url: jdbc:mysql://127.0.0.1:3306/entdiy_biz?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: mysqlP@ssword123
+  cloud:
+    nacos:
+      discovery:
+        # 本地开发环境设定特定的服务注册名称，避免干扰共享环境服务列表
+        service: dev-${spring.application.name}
+  output:
+    ansi:
+      enabled: ALWAYS
+  security:
+    user:
+      name: root
+      password: dev123
+      role: ADMIN
+logging:
+  config: classpath:logback-spring-dev.xml
+  level:
+    com.entdiy: DEBUG
+app:
+  devMode: true
+  security:
+    jwtSigningKey: jwtSigning@123

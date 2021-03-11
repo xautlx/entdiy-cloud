@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.entdiy.common.model.LabelValueBean;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
@@ -13,16 +14,18 @@ public enum GenderEnum implements LabelValueBean {
     FEMALE("F", "女"),
     PRIVACY("P", "保密");
 
-    @EnumValue
     @Getter
-    private String code;
+    @EnumValue
+    @JsonProperty
+    private String value;
 
     @Getter
+    @JsonProperty
     private String label;
 
     @JsonCreator
-    GenderEnum(String code, String label) {
-        this.code = code;
+    GenderEnum(String value, String label) {
+        this.value = value;
         this.label = label;
     }
 }

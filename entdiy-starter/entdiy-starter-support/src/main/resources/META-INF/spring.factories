@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.entdiy.boot.autoconfigure.support.SupportAutoConfiguration
+  com.entdiy.boot.autoconfigure.SupportAutoConfiguration

@@ -2,12 +2,9 @@ package com.entdiy.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import springfox.documentation.annotations.ApiIgnore;
 
-@Data
 public abstract class BaseEditDto {
 
     @Getter
@@ -20,11 +17,21 @@ public abstract class BaseEditDto {
     @ApiModelProperty(value = "乐观锁版本")
     private Integer version;
 
-    @ApiIgnore
+    @ApiModelProperty(hidden = true)
     @JsonIgnore
     public boolean isNew() {
         Long id = getId();
         if (id == null || id <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @ApiModelProperty(hidden = true)
+    @JsonIgnore
+    public boolean isEditing() {
+        Long id = getId();
+        if (id != null && id > 0) {
             return true;
         }
         return false;

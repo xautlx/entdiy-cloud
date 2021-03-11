@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    druid:
+      # 连接池配置
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 10000
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 5000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      max-evictable-idle-time-millis: 60000
+      removeAbandoned: false
+      removeAbandonedTimeout: 1800
+      max-pool-prepared-statement-per-connection-size: 20
+      # 单个写法灵活各个控制
+      filter:
+        stat:
+          enabled: true
+          slowSqlMillis: 5000
+        slf4j:
+          enabled: true
+          # 特别注意：有些控制参数后缀是Enable，有些是Enabled，特别坑！！！
+          statementExecutableSqlLogEnable: true
+          connectionLogEnabled: false
+          resultSetLogEnabled: false
+          statementCreateAfterLogEnabled: false
+          statementPrepareAfterLogEnabled: false
+          statementPrepareCallAfterLogEnabled: false
+          statementExecuteAfterLogEnabled: false
+          statementExecuteQueryAfterLogEnabled: false
+          statementExecuteUpdateAfterLogEnabled: false
+          statementExecuteBatchAfterLogEnabled: false
+          statementCloseAfterLogEnabled: false
+          statementParameterClearLogEnable: false
+          statementParameterSetLogEnabled: false
+        wall:
+          enabled: false
+          config:
+            # 兼容Flyway配置
+            comment-allow: true
+  flyway:
+    enabled: false
+    enabled-after-jpa: false
+  jpa:
+    database-platform: com.entdiy.common.test.dialect.TenantH2Dialect
+    hibernate:
+      ddlAuto: update
+  output:
+    ansi:
+      enabled: ALWAYS

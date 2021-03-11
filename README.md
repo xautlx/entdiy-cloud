@@ -1,4 +1,4 @@
-# spring-cloud-entdiy
+# entdiy-boot-cloud
 
 #### 介绍
 

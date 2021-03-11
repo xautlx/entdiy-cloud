@@ -1,10 +1,8 @@
 package com.entdiy.common.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
 public abstract class BaseListDto {
 
     @Getter

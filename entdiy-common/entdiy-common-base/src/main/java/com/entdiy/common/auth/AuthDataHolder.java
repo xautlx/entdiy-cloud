@@ -1,5 +1,6 @@
 package com.entdiy.common.auth;
 
+import com.entdiy.common.constant.BaseConstant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,12 +40,19 @@ public class AuthDataHolder {
     @Setter
     @ToString
     public static class AuthData {
-        private Boolean securityMode = Boolean.FALSE;
-        private Boolean forceSignature = Boolean.FALSE;
-        private String clientIP;
+        private String remoteIp;
         private String clientId;
-        private String userId;
-        private String tenantId;
-        private List<String> authorities;
+        private Long userId;
+        private String accountName;
+        private Long tenantId;
+        private List<String> roles;
+
+        public String getAuditString() {
+            return accountName;
+        }
+
+        public Long getTenantId() {
+            return tenantId == null ? BaseConstant.DEFAULT_TENANT_ID : tenantId;
+        }
     }
 }

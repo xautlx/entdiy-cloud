@@ -1,8 +1,0 @@
-mybatis-plus:
-  generator:
-    author:
-    parentPackageName:
-    moduleName:
-    schemaName:
-    tablePrefix:
-    superClassStrategy: com.entdiy.mybatisplus.generator.FieldParseSuperClassStrategy

@@ -1,8 +1,6 @@
 package com.entdiy.common.exception;
 
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
 
 public class ErrorCodeException extends RuntimeException {
 
@@ -17,16 +15,22 @@ public class ErrorCodeException extends RuntimeException {
     @Getter
     private boolean skipLog = false;
 
-
-    public ErrorCodeException(String code, String message) {
+    public ErrorCodeException(String message) {
         super(message);
-        Assert.isTrue(StringUtils.isNotEmpty(message), "Error message required");
-        this.code = code;
+    }
+
+    public ErrorCodeException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     public ErrorCodeException(String code, String message, Throwable cause) {
         super(message, cause);
+        this.code(code);
+    }
+
+    public ErrorCodeException code(String code) {
         this.code = code;
+        return this;
     }
 
     public ErrorCodeException skipLog() {

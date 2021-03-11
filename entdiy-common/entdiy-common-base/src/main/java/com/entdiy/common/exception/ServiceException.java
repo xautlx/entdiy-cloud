@@ -5,12 +5,15 @@ package com.entdiy.common.exception;
  */
 public class ServiceException extends ErrorCodeException {
 
-    public ServiceException(String code, String message) {
-        super(code, message);
+    public ServiceException(String message) {
+        this(message, null);
+    }
+
+    public ServiceException(String message, Throwable cause) {
+        this("SERVICE_EXCEPTION", message, cause);
     }
 
     public ServiceException(String code, String message, Throwable cause) {
         super(code, message, cause);
     }
-
 }

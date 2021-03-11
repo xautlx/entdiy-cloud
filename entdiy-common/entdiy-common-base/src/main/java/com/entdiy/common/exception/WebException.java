@@ -5,8 +5,12 @@ package com.entdiy.common.exception;
  */
 public class WebException extends ErrorCodeException {
 
-    public WebException(String code, String message) {
-        super(code, message);
+    public WebException(String message) {
+        this(message, null);
+    }
+
+    public WebException(String message, Throwable cause) {
+        this("WEB_EXCEPTION", message, cause);
     }
 
     public WebException(String code, String message, Throwable cause) {

@@ -1,0 +1,45 @@
+###
+POST http://127.0.0.1:8085/mdm/admin/user/edit
+Content-Type: application/json
+
+{
+  "accountName": "ABC",
+  "email": ""
+}
+
+###
+GET http://127.0.0.1:8085/mdm/rpc/tenant/auth/detail?tenantCode=root
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIl0sImp0aSI6IkRXa2I1RDQ0SXFNVzFtajJMWVg5TE01ODZwTSIsImNsaWVudF9pZCI6ImRldiJ9.0zVOkdlB7knuNHvLJWhPcUxxBpXEIFEbJLzrxazJ174
+
+###
+GET http://127.0.0.1:8085/mdm/admin/menu/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIl0sImp0aSI6IkRXa2I1RDQ0SXFNVzFtajJMWVg5TE01ODZwTSIsImNsaWVudF9pZCI6ImRldiJ9.0zVOkdlB7knuNHvLJWhPcUxxBpXEIFEbJLzrxazJ174
+
+###
+GET http://127.0.0.1:8085/mdm/admin/privilege/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIl0sImp0aSI6IkRXa2I1RDQ0SXFNVzFtajJMWVg5TE01ODZwTSIsImNsaWVudF9pZCI6ImRldiJ9.0zVOkdlB7knuNHvLJWhPcUxxBpXEIFEbJLzrxazJ174
+
+###
+GET http://127.0.0.1:8085/mdm/rpc/user/auth/detail?tenantId=1&accountName=admin
+
+###
+GET http://127.0.0.1:8085/mdm/ping
+
+###
+GET http://127.0.0.1:8085/mdm/meta-data/app-info
+
+###
+GET http://127.0.0.1:8085/mdm/json/menu/permission.json
+
+
+###
+GET http://127.0.0.1:8085/mdm/json/menu/sub-menu-list.json
+
+###
+POST http://127.0.0.1:8085/mdm/meta-data/rebuild-annotation
+
+###
+GET http://localhost:8085/mdm/admin/permission/query?order_by=id asc,code desc&q_id@eq=123
+
+###
+GET http://localhost:8085/mdm/meta-data/rebuild-meta-class?metaClasses=Tenant,TenantEditDto

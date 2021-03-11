@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>spring-cloud-entdiy</artifactId>
+        <artifactId>entdiy-boot-cloud</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -20,10 +20,10 @@
         <module>entdiy-starter-test</module>
         <module>entdiy-starter-support</module>
         <module>entdiy-starter-redis</module>
-        <module>entdiy-starter-mybatis</module>
+        <module>entdiy-starter-dao</module>
+        <module>entdiy-starter-feign</module>
+        <module>entdiy-starter-flyway</module>
         <module>entdiy-starter-web</module>
-        <module>entdiy-starter-server</module>
-        <module>entdiy-starter-config</module>
     </modules>
 
 </project>

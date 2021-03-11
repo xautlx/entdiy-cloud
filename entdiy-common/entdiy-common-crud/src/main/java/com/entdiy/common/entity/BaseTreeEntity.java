@@ -2,58 +2,51 @@ package com.entdiy.common.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.entdiy.common.web.json.JsonViews;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import org.springframework.util.Assert;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Index;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 /**
  * 实体对象基类
  */
-@Data
+@Setter
+@Getter
 @ExcelIgnoreUnannotated
 @MappedSuperclass
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class BaseTreeEntity extends BaseEntity implements TreePersistable<Long> {
 
-    /**
-     * 定义外键约束为none主要是为了方便删除表重建数据，为了避免意外删除大量数据，因此不支持递归删除方式,业务接口已限制只能删除子节点。
-     * 由于采用了Nested Set数据模型，除非清楚模型数据规则，请勿随意删除数据，否则会导致lft和rgt等相关数据混乱
-     */
-    @Column(name = "parent_id", nullable = true)
+    @Column(name = PARENT_ID_COLUMN_NAME, nullable = true)
     @ApiModelProperty(value = "上级节点主键")
-    @TableField(value = "parent_id")
+    @TableField(value = PARENT_ID_COLUMN_NAME)
+    @JsonView({JsonViews.ReadWrite.class})
     private Long parentId;
 
-    @Column(name = "lft", nullable = false)
-    @ApiModelProperty(value = "Nested Set Tree模型Left值")
-    @TableField(value = "lft")
-    private Integer lft = 0;
+    @Column(name = PARENT_ID_PATH_COLUMN_NAME, nullable = true, length = 512)
+    @ApiModelProperty(value = "上级节点ID路径", notes = "添加索引用于前缀匹配高效查询所有下属层级子节点")
+    @TableField(value = PARENT_ID_PATH_COLUMN_NAME)
+    @JsonIgnore
+    @Index(name = "ix_" + PARENT_ID_PATH_COLUMN_NAME)
+    private String parentIdPath = "";
 
-    @Column(name = "rgt", nullable = false)
-    @ApiModelProperty(value = "Nested Set Tree模型Right值")
-    @TableField(value = "rgt")
-    private Integer rgt = 0;
+    @Column(name = LEAF_NODE_COLUMN_NAME, nullable = false)
+    @ApiModelProperty(value = "是否叶子节点", notes = "便于树形展示显示提示图标")
+    @TableField(value = LEAF_NODE_COLUMN_NAME)
+    @JsonView({JsonViews.ReadOnly.class})
+    private Boolean leafNode = Boolean.TRUE;
 
-    @Column(name = "depth", nullable = false)
-    @ApiModelProperty(value = "节点层级")
-    @TableField(value = "depth")
-    private Integer depth = 0;
-
-    public void makeRoot() {
-        Assert.isTrue(this.getLft() == null || this.getLft() <= 0, "Invalid entity");
-        Assert.isTrue(this.getRgt() == null || this.getRgt() <= 0, "Invalid entity");
-        this.setLft(1);
-        this.setRgt(2);
-        this.setDepth(0);
-    }
-
-    public boolean isRoot() {
-        return this.getDepth() == 0;
-    }
-
-    public Boolean hasChildren() {
-        return (this.getRgt() - this.getLft()) > 1;
+    @Transient
+    @JsonView({JsonViews.AdminReadOnly.class})
+    public String getCurrentIdPath() {
+        return getParentIdPath() + "/" + getId();
     }
 }

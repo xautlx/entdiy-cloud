@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.entdiy</groupId>
-        <artifactId>spring-cloud-entdiy</artifactId>
+        <artifactId>entdiy-boot-cloud</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -16,7 +16,7 @@
 
     <modules>
         <module>entdiy-auth-api</module>
-        <module>entdiy-auth-cache</module>
+        <module>entdiy-auth-server</module>
     </modules>
 
 </project>

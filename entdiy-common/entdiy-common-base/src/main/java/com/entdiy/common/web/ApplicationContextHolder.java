@@ -19,46 +19,47 @@ package com.entdiy.common.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 @Slf4j
-@EnableConfigurationProperties(ApplicationContextProperties.class)
+@EnableConfigurationProperties(AppConfigProperties.class)
 public class ApplicationContextHolder implements ApplicationContextAware {
+
+    @Autowired
+    private AppConfigProperties appConfigPropertiesInstance;
+
+    private static AppConfigProperties appConfigProperties;
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ApplicationContextHolder.applicationContext = applicationContext;
+        if (appConfigPropertiesInstance.isDevMode()) {
+            log.info("Running at DEV mode");
+            // 开发模式，把版本信息设置为当前时间戳以触发JS、CSS等资源刷新加载
+            appConfigPropertiesInstance.setBuildVersion("DEV_" + System.currentTimeMillis());
+        }
+        ApplicationContextHolder.appConfigProperties = appConfigPropertiesInstance;
     }
 
-    private static ApplicationContextProperties properties;
-
     public static boolean isDemoMode() {
-        return properties.isDemoMode();
+        return appConfigProperties.isDemoMode();
     }
 
     public static boolean isDevMode() {
-        return properties.isDevMode();
-    }
-
-    public static boolean isProductionMode() {
-        return !isDevMode() && !isDemoMode();
+        return appConfigProperties.isDevMode();
     }
 
     public static String getBuildVersion() {
-        if (isDevMode()) {
-            // 开发模式，把版本信息设置为当前时间戳以触发JS、CSS等资源刷新加载
-            return "DEV_" + System.currentTimeMillis();
-        } else {
-            return properties.getBuildVersion();
-        }
+        return appConfigProperties.getBuildVersion();
     }
 
     public static String getSystemName() {
-        return properties.getSystemName();
+        return appConfigProperties.getSystemName();
     }
 
     public static ApplicationContext getApplicationContext() {

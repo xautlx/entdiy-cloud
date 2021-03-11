@@ -1,7 +1,7 @@
 package com.entdiy.common.exception;
 
 
-import com.entdiy.common.model.ResultCodeEnum;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 校验失败异常
@@ -11,9 +11,38 @@ import com.entdiy.common.model.ResultCodeEnum;
  */
 
 public class Validation {
-    public static void isTrue(boolean val, String message) {
+
+    private static String processMessageParams(String message, Object... params) {
+        if (params != null) {
+            for (Object param : params) {
+                message = StringUtils.replace(message, "{}", String.valueOf(param));
+            }
+        }
+        return message;
+    }
+
+    public static void isTrue(boolean val, String message, Object... params) {
         if (!val) {
-            throw new ValidationException(ResultCodeEnum.Validation.getCode(), message);
+            throw new ValidationException(processMessageParams(message, params));
         }
     }
+
+    public static <E> E notNull(E object, String message, Object... params) {
+        if (object == null) {
+            throw new ValidationException(processMessageParams(message, params));
+        }
+        return object;
+    }
+
+    public static String notBlank(String text, String message, Object... params) {
+        if (text == null) {
+            throw new ValidationException(processMessageParams(message, params));
+        }
+        text = text.trim();
+        if (StringUtils.isEmpty(text)) {
+            throw new ValidationException(processMessageParams(message, params));
+        }
+        return text;
+    }
+
 }

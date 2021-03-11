@@ -1,6 +1,5 @@
 package com.entdiy.common.test.support;
 
-import com.entdiy.common.util.DateUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Data;
@@ -23,7 +22,11 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * 模拟实体对象实例构造帮助类
@@ -80,9 +83,9 @@ public class MockEntityUtils {
                             } else if (parameter.isAssignableFrom(Date.class)) {
                                 throw new RuntimeException("Please use LocalData to instead Date.");
                             } else if (parameter.isAssignableFrom(LocalDate.class)) {
-                                value = DateUtil.currentDateTime().toLocalDate();
+                                value = LocalDate.now();
                             } else if (parameter.isAssignableFrom(LocalDateTime.class)) {
-                                value = DateUtil.currentDateTime();
+                                value = LocalDateTime.now();
                             } else if (parameter.isAssignableFrom(BigDecimal.class)) {
                                 value = new BigDecimal(10 + new Double(new Random().nextDouble() * 1000).intValue());
                             } else if (parameter.isAssignableFrom(Integer.class)) {
