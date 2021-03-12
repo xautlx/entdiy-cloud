@@ -35,10 +35,14 @@ public class RedisConfig {
 
     @PostConstruct
     public void init() {
-        //初始化获取Redis连接做健康检查，以便在应用启动过程立即发现连接参数错误等情况
-        RedisConnection redisConnection = redisConnectionFactory.getConnection();
-        redisConnection.close();
-        log.info("Redis connection OK");
+        try {
+            //初始化获取Redis连接做健康检查，以便在应用启动过程立即发现连接参数错误等情况
+            RedisConnection redisConnection = redisConnectionFactory.getConnection();
+            redisConnection.close();
+            log.info("Redis connection OK");
+        } catch (Exception e) {
+            log.warn("Redis connection failure", e);
+        }
     }
 
     @Bean
