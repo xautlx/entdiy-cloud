@@ -18,7 +18,6 @@
         <module>entdiy-mdm-api</module>
         <module>entdiy-mdm-provider</module>
         <module>entdiy-mdm-starter</module>
-        <module>entdiy-mdm-generator</module>
     </modules>
 
 </project>
