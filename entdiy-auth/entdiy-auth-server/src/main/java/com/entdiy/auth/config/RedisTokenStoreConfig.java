@@ -21,4 +21,5 @@ public class RedisTokenStoreConfig {
         redisTokenStore.setPrefix("oauth2:");
         return redisTokenStore;
     }
+
 }

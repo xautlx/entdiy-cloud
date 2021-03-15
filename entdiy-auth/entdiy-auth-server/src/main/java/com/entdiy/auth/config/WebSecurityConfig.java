@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/css/**", "/static/**")
+                .antMatchers("/login.html", "/css/**", "/static/**")
                 .mvcMatchers(HttpMethod.OPTIONS, "/**");
     }
 
@@ -62,11 +62,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .formLogin().loginPage("/login").permitAll()
-                .and().authorizeRequests().anyRequest().permitAll()
-                .and().csrf().disable();
-                //建议采用Nginx层面做CORS处理
-                //.cors().and();
+        http.requestMatchers()
+                .antMatchers("/login")
+                .antMatchers("/oauth/authorize")
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login.html")
+                .loginProcessingUrl("/login")
+                .permitAll()
+                .and()
+                .csrf().disable();
     }
 }

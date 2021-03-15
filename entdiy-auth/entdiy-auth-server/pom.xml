@@ -6,7 +6,7 @@
         <groupId>com.entdiy</groupId>
         <artifactId>entdiy-auth</artifactId>
         <version>1.0.0</version>
-        <relativePath>../.</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>entdiy-auth-server</artifactId>
@@ -88,6 +88,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

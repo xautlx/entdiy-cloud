@@ -38,8 +38,10 @@ public class TenantUserDetailsService implements UserDetailsService {
         //将组合的登录账号数据进行属性拆分
         String[] splits = compositeName.split(AuthConstant.USERNAME_DATA_SPLIT);
         String accountName = Validation.notBlank(splits[0], "登录账号不能为空");
-        String tenantCode = Validation.notBlank(splits[1], "租户代码不能为空");
-
+        String tenantCode = BaseConstant.ROOT;
+        if (splits.length > 1) {
+            tenantCode = splits[1];
+        }
 
         TenantAuthModel tenantAuth = iAuthService.findTenantDetail(tenantCode);
         Validation.notNull(tenantAuth, "租户代码无效: {}", tenantCode);

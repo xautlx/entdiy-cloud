@@ -21,6 +21,15 @@ spring:
       name: root
       password: dev123
       role: ADMIN
+security:
+  oauth2:
+    client:
+      client-id: test
+      client-secret: test123
+      user-authorization-uri: http://localhost:8080/auth/oauth/authorize
+      access-token-uri: http://localhost:8080/auth/oauth/token
+    resource:
+      user-info-uri: http://localhost:8080/auth/user
 logging:
   config: classpath:logback-spring-dev.xml
   level:

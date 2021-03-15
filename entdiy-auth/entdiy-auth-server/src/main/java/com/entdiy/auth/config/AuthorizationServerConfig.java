@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -32,6 +33,9 @@ import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
+import org.springframework.security.oauth2.provider.code.RedisAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
@@ -78,6 +82,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Resource
     private TokenStore tokenStore;
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices(){
+        return new RedisAuthorizationCodeServices(redisConnectionFactory);
+    }
 
     @Bean
     public WebResponseExceptionTranslator exceptionTranslator() {
@@ -137,12 +149,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         OAuth2RequestFactory requestFactory = tenantOAuth2RequestFactory();
 
         List<TokenGranter> tokenGranters = new ArrayList<TokenGranter>();
+        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices,authorizationCodeServices(), clientDetailsService, requestFactory));
         tokenGranters.add(new RefreshTokenGranter(tokenServices, clientDetailsService, requestFactory));
-        ImplicitTokenGranter implicit = new ImplicitTokenGranter(tokenServices, clientDetailsService,
-                requestFactory);
-        tokenGranters.add(implicit);
-        tokenGranters.add(
-                new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetailsService,requestFactory));
+        tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
         if (authenticationManager != null) {
             tokenGranters.add(new DefaultResourceOwnerPasswordTokenGranter(authenticationManager,
                     tokenServices(), clientDetailsService, requestFactory));
@@ -171,6 +181,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .exceptionTranslator(exceptionTranslator())
                 .authenticationManager(authenticationManager)
                 .tokenGranter(tokenGranter())
+                .authorizationCodeServices(authorizationCodeServices())
                 .accessTokenConverter(accessTokenConverter())
                 .requestFactory(tenantOAuth2RequestFactory())
                 .reuseRefreshTokens(true);
