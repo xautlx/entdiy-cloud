@@ -3,8 +3,6 @@ server:
 spring:
   profiles:
     include: local
-  main:
-    allow-bean-definition-overriding: true
   datasource:
     # CREATE DATABASE IF NOT EXISTS  entdiy default character set utf8mb4 collate utf8mb4_unicode_ci;
     url: jdbc:mysql://127.0.0.1:3306/entdiy_biz?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -23,16 +21,6 @@ spring:
       name: root
       password: dev123
       role: ADMIN
-security:
-  oauth2:
-    client:
-      client-id: test
-      client-secret: test123
-      user-authorization-uri: http://localhost:8080/auth/oauth/authorize
-      access-token-uri: http://localhost:8080/auth/oauth/token
-    resource:
-      jwt:
-        key-value: jwtSigning@prd123
 logging:
   config: classpath:logback-spring-dev.xml
   level:

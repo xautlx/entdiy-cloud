@@ -1,15 +1,16 @@
 server:
   port: 8080
   servlet:
-    context-path: /entdiy
+    context-path: /api
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
   tomcat:
     uri-encoding: UTF-8
 spring:
-  http:
-    encoding:
-      force: true
-      enabled: true
-      charset: UTF-8
+  main:
+    allow-bean-definition-overriding: true
   mvc:
     throw-exception-if-no-handler-found: true
   jackson:
@@ -110,6 +111,17 @@ spring:
         max-idle: 10
         # 最小空闲连接数 默认0
         min-idle: 0
+security:
+  oauth2:
+    client:
+      client-id: test
+      client-secret: test123
+      authorization-host-uri: http://localhost:8080/auth
+      user-authorization-uri: ${security.oauth2.client.authorization-host-uri}/oauth/authorize
+      access-token-uri: ${security.oauth2.client.authorization-host-uri}/oauth/token
+    resource:
+      jwt:
+        key-value: jwtSigning@prd123
 mybatis-plus:
   global-config:
     db-config:
