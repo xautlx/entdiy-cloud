@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @link https://gitee.com/copoile/springcloud-oauth2
  */
 @Configuration
-@Order(200)
+@Order(1)
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

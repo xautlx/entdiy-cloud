@@ -3,13 +3,11 @@ package com.entdiy.auth.config;
 import com.entdiy.auth.security.BlackListRedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-@Configuration
-@Order(50)
+//@Configuration
+//@Order(50)
 public class RedisTokenStoreConfig {
 
     @Autowired

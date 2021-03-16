@@ -18,10 +18,15 @@ public class EntrypointApplication {
     }
 
 
+    @GetMapping("/")
+    public String root() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
     @GetMapping("/hello")
     public String hello() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName() + Arrays.toString(authentication.getAuthorities().toArray());
     }
-
 }

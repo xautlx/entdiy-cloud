@@ -13,10 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -25,9 +23,6 @@ import java.util.Set;
 @Slf4j
 @Component
 public class TenantUserDetailsService implements UserDetailsService {
-
-    @Resource
-    private TokenStore tokenStore;
 
     @Autowired
     private IAuthService iAuthService;

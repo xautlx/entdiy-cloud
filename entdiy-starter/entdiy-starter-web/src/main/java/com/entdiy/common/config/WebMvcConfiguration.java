@@ -27,11 +27,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration
-public class WebMvcAutoConfiguration implements WebMvcConfigurer {
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private final String baseUrl;
 
-    public WebMvcAutoConfiguration(
+    public WebMvcConfiguration(
             @Value("${springfox.documentation.swagger-ui.base-url:}") String baseUrl) {
         this.baseUrl = baseUrl;
     }

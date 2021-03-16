@@ -1,5 +1,6 @@
 package com.entdiy.common.config;
 
+import com.entdiy.auth.security.RevokableJwtTokenStore;
 import com.entdiy.common.filter.AuthDataHolderFilter;
 import com.entdiy.common.logger.web.HttpRequestLogServletFilter;
 import com.entdiy.common.security.TenantAccessTokenConverter;
@@ -10,28 +11,23 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.jwt.JwtHelper;
-import org.springframework.security.jwt.crypto.sign.MacSigner;
-import org.springframework.security.jwt.crypto.sign.Signer;
-import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
-import org.springframework.security.oauth2.provider.expression.OAuth2SecurityExpressionMethods;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
-import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
@@ -40,14 +36,10 @@ import org.springframework.security.web.header.HeaderWriterFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-//@Configuration
-//@EnableResourceServer
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-//@EnableConfigurationProperties({AppConfigProperties.class})
+@Configuration
+@EnableResourceServer
+@EnableConfigurationProperties({AppConfigProperties.class})
 @Slf4j
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
@@ -58,27 +50,19 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
     private ObjectMapper objectMapper;
 
     @Bean
-    @ConditionalOnMissingBean
-    @ConfigurationProperties(prefix = "app.security.oauth2.client")
-    public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
-        return new ClientCredentialsResourceDetails();
-    }
-
-    @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setAccessTokenConverter(new TenantAccessTokenConverter());
         converter.setSigningKey(appConfigProperties.getSecurity().getJwtSigningKey());
-        //converter.setVerifierKey(appConfigProperties.getSecurity().getJwtSigningKey());
         return converter;
     }
 
-    public class DelegateBearerTokenExtractor extends BearerTokenExtractor {
-        private ClientCredentialsResourceDetails clientCredentialsResourceDetails;
+    @Bean
+    public TokenStore tokenStore() {
+        return new RevokableJwtTokenStore(accessTokenConverter());
+    }
 
-        public DelegateBearerTokenExtractor(ClientCredentialsResourceDetails clientCredentialsResourceDetails) {
-            this.clientCredentialsResourceDetails = clientCredentialsResourceDetails;
-        }
+    public class DelegateBearerTokenExtractor extends BearerTokenExtractor {
 
         @Override
         @SneakyThrows
@@ -86,40 +70,25 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
             String token = super.extractHeaderToken(request);
             //如果从请求未获取到token则尝试去开发模拟token，方便开发调试
             if (appConfigProperties.isDevMode() && StringUtils.isEmpty(token)) {
-                token = mockClientJwtToken(clientCredentialsResourceDetails.getClientId());
+                token = "mockClientJwtToken(clientCredentialsResourceDetails.getClientId())";
             }
             return token;
         }
     }
 
-    private AccessTokenConverter tokenConverter;
-    private Signer signer;
-
-    @SneakyThrows
-    private String mockClientJwtToken(String clientId) {
-        if (tokenConverter == null) {
-            tokenConverter = new DefaultAccessTokenConverter();
-        }
-        if (signer == null) {
-            signer = new MacSigner(appConfigProperties.getSecurity().getJwtSigningKey());
-        }
-        Map<String, Object> data = new HashMap();
-        data.put(AccessTokenConverter.CLIENT_ID, clientId);
-        data.put(AccessTokenConverter.JTI, clientId);
-        data.put(AccessTokenConverter.SCOPE, new String[]{"read", "write"});
-        return JwtHelper.encode(objectMapper.writeValueAsString(data), signer).getEncoded();
-    }
-
     @Bean
-    public TokenStore tokenStore() {
-        JwtTokenStore jwtTokenStore = new JwtTokenStore(accessTokenConverter());
-        return jwtTokenStore;
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        tokenServices.setTokenStore(tokenStore());
+        tokenServices.setTokenEnhancer(accessTokenConverter());
+        return tokenServices;
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.tokenStore(tokenStore())
-                .tokenExtractor(new DelegateBearerTokenExtractor(clientCredentialsResourceDetails()))
+                .tokenExtractor(new DelegateBearerTokenExtractor())
                 //定制把所有认证授权异常转换为封装结构响应
                 .authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
@@ -142,6 +111,8 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         }
     }
 
+
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -149,13 +120,14 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
         http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
-        if (log.isInfoEnabled()) {
-            log.info("Using securityProperties: {}", appConfigProperties.getSecurity());
-        }
+//        if (log.isInfoEnabled()) {
+//            log.info("Using securityProperties: {}", appConfigProperties.getSecurity());
+//        }
 
         //开放权限请求
         String[] permitAllUrls = new String[]{
                 "/",
+                "/login",
                 "/v2/api-docs",
                 "/swagger-resources/**",
                 "/swagger-ui.html",
@@ -209,6 +181,10 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         //搬迁JWT认证信息到TheadLocal容器对象
         http.addFilterAfter(new AuthDataHolderFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
+//        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientFilter=new OAuth2ClientAuthenticationProcessingFilter("/index.html");
+//        oAuth2ClientFilter.setAuthenticationSuccessHandler(new ForwardAuthenticationSuccessHandler("/index.html"));
+//        http.addFilterAfter(oAuth2ClientFilter, AbstractPreAuthenticatedProcessingFilter.class);
+
         //添加 自定义 filter
 //        UrlFilterSecurityInterceptor urlFilterSecurityInterceptor = new UrlFilterSecurityInterceptor();
 //        List<AccessDecisionVoter<? extends Object>> decisionVoters = Lists.newArrayList();
@@ -219,7 +195,6 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 //        urlFilterSecurityInterceptor.setSecurityMetadataSource(securityMetadataSource());
 //        //http.addFilterAfter(urlFilterSecurityInterceptor, FilterSecurityInterceptor.class);
 
-        // druid等需要session支持
-        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

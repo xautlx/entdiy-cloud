@@ -1,9 +1,9 @@
 package com.entdiy.auth.config;
 
 import com.entdiy.auth.model.TenantUserDetails;
-import com.entdiy.auth.security.CustomUserAuthenticationConverter;
 import com.entdiy.auth.security.DefaultResourceOwnerPasswordTokenGranter;
 import com.entdiy.auth.security.JsonBasicAuthenticationEntryPoint;
+import com.entdiy.auth.security.RevokableJwtTokenStore;
 import com.entdiy.auth.security.TenantClientDetailsService;
 import com.entdiy.auth.security.TenantOAuth2RequestFactory;
 import com.entdiy.auth.web.OAuth2ExceptionTranslator;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,7 +39,6 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -58,7 +56,6 @@ import java.util.Map;
 
 
 @Configuration
-@Order(100)
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
@@ -80,14 +77,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private AuthenticationManager authenticationManager;
 
-    @Resource
-    private TokenStore tokenStore;
-
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
     @Bean
-    public AuthorizationCodeServices authorizationCodeServices(){
+    public AuthorizationCodeServices authorizationCodeServices() {
         return new RedisAuthorizationCodeServices(redisConnectionFactory);
     }
 
@@ -97,14 +91,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Bean
+    public TokenStore tokenStore() {
+        return new RevokableJwtTokenStore(accessTokenConverter());
+    }
+
+    @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        //定制处理RefreshToken获取业务属性处理
-        DefaultAccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
-        CustomUserAuthenticationConverter userTokenConverter = new CustomUserAuthenticationConverter();
-        userTokenConverter.setUserDetailsService(userDetailsService);
-        tokenConverter.setUserTokenConverter(userTokenConverter);
-        converter.setAccessTokenConverter(tokenConverter);
+//        //定制处理RefreshToken获取业务属性处理
+//        DefaultAccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
+//        CustomUserAuthenticationConverter userTokenConverter = new CustomUserAuthenticationConverter();
+//        userTokenConverter.setUserDetailsService(userDetailsService);
+//        tokenConverter.setUserTokenConverter(userTokenConverter);
+//        converter.setAccessTokenConverter(tokenConverter);
         converter.setSigningKey(appConfigProperties.getSecurity().getJwtSigningKey());
         return converter;
     }
@@ -135,7 +134,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         chain.setTokenEnhancers(Lists.newArrayList(tokenEnhancer(), accessTokenConverter()));
 
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore);
+        tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
         tokenServices.setReuseRefreshToken(true);
         tokenServices.setClientDetailsService(tenantClientDetailsService());
@@ -143,15 +142,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return tokenServices;
     }
 
+    /**
+     * 主要是为了定制 DefaultResourceOwnerPasswordTokenGranter 基于标准扩展
+     *
+     * @return
+     * @see AuthorizationServerEndpointsConfigurer#getDefaultTokenGranters()
+     */
     private List<TokenGranter> getDefaultTokenGranters() {
         ClientDetailsService clientDetailsService = tenantClientDetailsService();
         AuthorizationServerTokenServices tokenServices = tokenServices();
         OAuth2RequestFactory requestFactory = tenantOAuth2RequestFactory();
 
         List<TokenGranter> tokenGranters = new ArrayList<TokenGranter>();
-        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices,authorizationCodeServices(), clientDetailsService, requestFactory));
+        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices(), clientDetailsService, requestFactory));
         tokenGranters.add(new RefreshTokenGranter(tokenServices, clientDetailsService, requestFactory));
-        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetailsService,requestFactory));
+        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetailsService, requestFactory));
         tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
         if (authenticationManager != null) {
             tokenGranters.add(new DefaultResourceOwnerPasswordTokenGranter(authenticationManager,
@@ -182,6 +187,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .tokenGranter(tokenGranter())
                 .authorizationCodeServices(authorizationCodeServices())
+                .tokenStore(tokenStore())
                 .accessTokenConverter(accessTokenConverter())
                 .requestFactory(tenantOAuth2RequestFactory())
                 .reuseRefreshTokens(true);
@@ -210,5 +216,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         oauthServer.addTokenEndpointAuthenticationFilter(new HttpRequestLogServletFilter());
         oauthServer.authenticationEntryPoint(basicAuthenticationEntryPoint());
     }
+
 
 }
