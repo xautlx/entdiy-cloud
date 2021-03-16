@@ -21,6 +21,11 @@
         </dependency>
         <dependency>
             <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-auth-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-web</artifactId>
             <version>${project.version}</version>
         </dependency>
