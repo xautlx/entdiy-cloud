@@ -7,3 +7,8 @@ Cookie: JSESSIONID=26EA97CF3D7180517A58C783EBDB684F
 GET http://127.0.0.1:8085/entdiy/hello
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInVzZXJfaWQiOjEsInVzZXJfbmFtZSI6ImFkbWluXHRyb290Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF1dGhvcml0aWVzIjpbIlJPTEVfUk9PVF9URU5BTlQiXSwianRpIjoiUHp5cDJDWGotcm1FUXZ4Sk9fTmR6d0M3dWxjIiwiY2xpZW50X2lkIjoidGVzdCJ9.1-GZ39-UJAsiC7rgDXfu2fZXxZjmTbbX__RZXSk8IVo
 
+###
+GET http://47.96.65.93:88/api/sys/visitInfo?_t=1615988969
+
+###
+GET http://127.0.0.1:8085/api/sys/visitInfo?_t=1615988969

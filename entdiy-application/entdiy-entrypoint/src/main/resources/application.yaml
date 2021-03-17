@@ -11,8 +11,12 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+  # for 404 error handle
   mvc:
     throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
   jackson:
     mapper:
       default-view-inclusion: true

@@ -5,7 +5,7 @@ import com.entdiy.common.filter.AuthDataHolderFilter;
 import com.entdiy.common.logger.web.HttpRequestLogServletFilter;
 import com.entdiy.common.security.TenantAccessTokenConverter;
 import com.entdiy.common.web.AppConfigProperties;
-import com.entdiy.common.web.WebExceptionResolver;
+import com.entdiy.common.web.GlobalWebExceptionResolver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -99,7 +99,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         @Override
         public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException {
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(WebExceptionResolver.buildResponseBody(request, e)));
+            response.getWriter().write(objectMapper.writeValueAsString(GlobalWebExceptionResolver.buildResponseBody(request, e)));
         }
     }
 
@@ -107,7 +107,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(WebExceptionResolver.buildResponseBody(request, e)));
+            response.getWriter().write(objectMapper.writeValueAsString(GlobalWebExceptionResolver.buildResponseBody(request, e)));
         }
     }
 

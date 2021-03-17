@@ -1,7 +1,7 @@
 package com.entdiy.auth.web;
 
 import com.entdiy.common.model.ViewResult;
-import com.entdiy.common.web.WebExceptionResolver;
+import com.entdiy.common.web.GlobalWebExceptionResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
-public class OAuth2ExceptionTranslator extends WebExceptionResolver implements WebResponseExceptionTranslator<OAuth2Exception> {
+public class OAuth2ExceptionTranslator extends GlobalWebExceptionResolver implements WebResponseExceptionTranslator<OAuth2Exception> {
 
     protected static ViewResult preParseProcess(Throwable[] causeChain) {
         ViewResult viewResult = null;

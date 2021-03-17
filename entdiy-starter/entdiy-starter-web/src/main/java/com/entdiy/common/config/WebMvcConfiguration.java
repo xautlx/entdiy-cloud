@@ -4,7 +4,7 @@ import com.entdiy.common.constant.BaseConstant;
 import com.entdiy.common.jackson.ExtLocalDateDeserializer;
 import com.entdiy.common.jackson.ExtLocalDateTimeDeserializer;
 import com.entdiy.common.web.ApplicationContextHolder;
-import com.entdiy.common.web.WebExceptionResolver;
+import com.entdiy.common.web.GlobalWebExceptionResolver;
 import com.entdiy.common.web.databind.resolver.PageableMethodArgumentResolver;
 import com.entdiy.common.web.databind.resolver.QueryWrapperMethodAArgumentResolver;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -62,8 +62,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public WebExceptionResolver exceptionResolver() {
-        return new WebExceptionResolver();
+    public GlobalWebExceptionResolver exceptionResolver() {
+        return new GlobalWebExceptionResolver();
     }
 
     @Bean

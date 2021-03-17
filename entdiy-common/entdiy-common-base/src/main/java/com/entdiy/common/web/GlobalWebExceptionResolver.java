@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class WebExceptionResolver implements HandlerExceptionResolver {
+public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
 
     private static DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
             // 解析date+time
@@ -87,6 +88,13 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
             ErrorCodeException exception = (ErrorCodeException) throwableAnalyzer.getFirstThrowableOfType(ErrorCodeException.class, causeChain);
             if (exception != null) {
                 viewResult = ViewResult.error(exception.getCode(), exception.getMessage()).skipLog(exception.isSkipLog());
+            }
+        }
+
+        if (viewResult == null) {
+            NoHandlerFoundException exception = (NoHandlerFoundException) throwableAnalyzer.getFirstThrowableOfType(NoHandlerFoundException.class, causeChain);
+            if (exception != null) {
+                viewResult = ViewResult.error(HttpStatus.NOT_FOUND, "资源未找到").skipLog(true);
             }
         }
 

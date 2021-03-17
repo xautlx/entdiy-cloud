@@ -9,7 +9,7 @@ import com.entdiy.common.model.BatchResult;
 import com.entdiy.common.model.PageResult;
 import com.entdiy.common.service.BaseService;
 import com.entdiy.common.util.BeanUtil;
-import com.entdiy.common.web.WebExceptionResolver;
+import com.entdiy.common.web.GlobalWebExceptionResolver;
 import com.entdiy.common.web.databind.resolver.PageableMethodArgumentResolver;
 import com.entdiy.common.web.databind.resolver.QueryWrapperMethodAArgumentResolver;
 import com.google.common.collect.Lists;
@@ -204,7 +204,7 @@ public abstract class BaseController<
                     if (errorMessage == null) {
                         //构建和记录友好和详细的错误信息及消息
                         //生成一个异常流水号，追加到错误消息上显示到前端用户，用户反馈问题时给出此流水号给运维或开发人员快速定位对应具体异常细节
-                        String exceptionCode = WebExceptionResolver.buildEID();
+                        String exceptionCode = GlobalWebExceptionResolver.buildEID();
                         errorMessage = exceptionCode + ": 数据删除操作失败，请联系管理员处理！";
                         log.error(errorMessage, e);
                     }
