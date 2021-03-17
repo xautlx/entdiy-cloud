@@ -9,15 +9,20 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
-public class OAuth2ExceptionTranslator extends GlobalWebExceptionResolver implements WebResponseExceptionTranslator<OAuth2Exception> {
+public class OAuth2ExceptionTranslator implements WebResponseExceptionTranslator<OAuth2Exception> {
 
-    protected static ViewResult preParseProcess(Throwable[] causeChain) {
+    public static ViewResult buildResponseBody(HttpServletRequest request, HttpServletResponse response, Exception e) {
+
+        ThrowableAnalyzer throwableAnalyzer = GlobalWebExceptionResolver.throwableAnalyzer;
+        Throwable[] causeChain = throwableAnalyzer.determineCauseChain(e);
         ViewResult viewResult = null;
 
         if (viewResult == null) {
@@ -45,6 +50,10 @@ public class OAuth2ExceptionTranslator extends GlobalWebExceptionResolver implem
             }
         }
 
+        if (viewResult == null) {
+            viewResult = GlobalWebExceptionResolver.buildResponseBody(request, response, e);
+        }
+
         return viewResult;
     }
 
@@ -58,9 +67,9 @@ public class OAuth2ExceptionTranslator extends GlobalWebExceptionResolver implem
     @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) {
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-        ViewResult exceptionViewResult = buildResponseBody(request, e);
+        HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
+        ViewResult exceptionViewResult = buildResponseBody(request, response, e);
         CustomOAuth2Exception oAuth2Exception = CustomOAuth2Exception.valueOf(exceptionViewResult);
-        ResponseEntity<OAuth2Exception> response = new ResponseEntity(oAuth2Exception, HttpStatus.OK);
-        return response;
+        return new ResponseEntity(oAuth2Exception, HttpStatus.OK);
     }
 }

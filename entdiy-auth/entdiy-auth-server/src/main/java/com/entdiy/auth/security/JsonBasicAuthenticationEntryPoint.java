@@ -23,7 +23,7 @@ public class JsonBasicAuthenticationEntryPoint extends BasicAuthenticationEntryP
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
-        ViewResult viewResult = OAuth2ExceptionTranslator.buildResponseBody(request, authException);
+        ViewResult viewResult = OAuth2ExceptionTranslator.buildResponseBody(request, response, authException);
         response.getWriter().write(objectMapper.writeValueAsString(viewResult));
     }
 }

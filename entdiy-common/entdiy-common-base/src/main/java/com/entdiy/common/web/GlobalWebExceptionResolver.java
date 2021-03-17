@@ -39,7 +39,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
             .appendValue(ChronoField.MILLI_OF_SECOND, 3)
             .toFormatter();
 
-    protected static ThrowableAnalyzer throwableAnalyzer = new ThrowableAnalyzer();
+    public static ThrowableAnalyzer throwableAnalyzer = new ThrowableAnalyzer();
 
     public static String buildEID() {
         // TODO 优先从链路跟踪系统取全局唯一ID，如果没有则动态创建随机ID
@@ -69,19 +69,9 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         return mv;
     }
 
-    /**
-     * 供子类覆写预处理特定异常
-     *
-     * @param causeChain
-     * @return
-     */
-    protected static ViewResult preParseProcess(Throwable[] causeChain) {
-        return null;
-    }
-
     public static ViewResult buildResponseBody(HttpServletRequest request,HttpServletResponse response, Exception e) {
         Throwable[] causeChain = throwableAnalyzer.determineCauseChain(e);
-        ViewResult viewResult = preParseProcess(causeChain);
+        ViewResult viewResult = null;
 
         if (viewResult == null) {
             ErrorCodeException exception = (ErrorCodeException) throwableAnalyzer.getFirstThrowableOfType(ErrorCodeException.class, causeChain);
