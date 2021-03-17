@@ -14,7 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +63,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         view.setExtractValueFromSingleKeyModel(true);
 
         Map<String, Object> attributes = new HashMap(4);
-        attributes.put("body", buildResponseBody(request, e));
+        attributes.put("body", buildResponseBody(request,response, e));
         view.setAttributesMap(attributes);
         mv.setView(view);
         return mv;
@@ -80,27 +79,22 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         return null;
     }
 
-    public static ViewResult buildResponseBody(HttpServletRequest request, Exception e) {
+    public static ViewResult buildResponseBody(HttpServletRequest request,HttpServletResponse response, Exception e) {
         Throwable[] causeChain = throwableAnalyzer.determineCauseChain(e);
         ViewResult viewResult = preParseProcess(causeChain);
 
         if (viewResult == null) {
             ErrorCodeException exception = (ErrorCodeException) throwableAnalyzer.getFirstThrowableOfType(ErrorCodeException.class, causeChain);
             if (exception != null) {
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
                 viewResult = ViewResult.error(exception.getCode(), exception.getMessage()).skipLog(exception.isSkipLog());
-            }
-        }
-
-        if (viewResult == null) {
-            NoHandlerFoundException exception = (NoHandlerFoundException) throwableAnalyzer.getFirstThrowableOfType(NoHandlerFoundException.class, causeChain);
-            if (exception != null) {
-                viewResult = ViewResult.error(HttpStatus.NOT_FOUND, "资源未找到").skipLog(true);
             }
         }
 
         if (viewResult == null) {
             InsufficientAuthenticationException exception = (InsufficientAuthenticationException) throwableAnalyzer.getFirstThrowableOfType(InsufficientAuthenticationException.class, causeChain);
             if (exception != null) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 viewResult = ViewResult.error(HttpStatus.FORBIDDEN, "权限不足").skipLog(true);
             }
         }
@@ -108,6 +102,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         if (viewResult == null) {
             BadCredentialsException exception = (BadCredentialsException) throwableAnalyzer.getFirstThrowableOfType(BadCredentialsException.class, causeChain);
             if (exception != null) {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 viewResult = ViewResult.error(HttpStatus.UNAUTHORIZED, "账号或密码不正确").skipLog(true);
             }
         }
@@ -115,6 +110,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         if (viewResult == null) {
             AccessDeniedException exception = (AccessDeniedException) throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
             if (exception != null) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 viewResult = ViewResult.error(HttpStatus.FORBIDDEN, "访问拒绝").skipLog(true);
             }
         }
@@ -122,6 +118,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
         if (viewResult == null) {
             DataTruncation exception = (DataTruncation) throwableAnalyzer.getFirstThrowableOfType(DataTruncation.class, causeChain);
             if (exception != null) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
                 viewResult = ViewResult.error(HttpStatus.BAD_REQUEST, "提交数据内容过长，请检查修正").skipLog(false);
             }
         }
@@ -131,6 +128,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
             if (exception != null) {
                 String message = exception.getMessage();
                 if (message.startsWith("Duplicate")) {
+                    response.setStatus(HttpStatus.BAD_REQUEST.value());
                     viewResult = ViewResult.error(HttpStatus.BAD_REQUEST, "提交数据已存在，请检查修正").skipLog(false);
                 }
             }
@@ -140,6 +138,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
             MethodArgumentNotValidException mane = (MethodArgumentNotValidException) throwableAnalyzer.getFirstThrowableOfType(MethodArgumentNotValidException.class, causeChain);
             if (mane != null) {
                 List<FieldError> fieldErrors = mane.getBindingResult().getFieldErrors();
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
                 viewResult = ViewResult.error(HttpStatus.BAD_REQUEST,
                         fieldErrors.stream().map(fe -> fe.getField() + fe.getDefaultMessage()).collect(Collectors.joining(";"))).skipLog(true);
                 return viewResult;
@@ -148,6 +147,7 @@ public class GlobalWebExceptionResolver implements HandlerExceptionResolver {
 
         if (viewResult == null) {
             String msg = log.isDebugEnabled() && StringUtils.isNotEmpty(e.getMessage()) ? e.getMessage() : "系统处理异常";
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             viewResult = ViewResult.error(HttpStatus.INTERNAL_SERVER_ERROR, msg).skipLog(false);
         }
 
