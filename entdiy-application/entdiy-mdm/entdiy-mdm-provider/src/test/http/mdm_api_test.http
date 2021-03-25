@@ -36,7 +36,7 @@ GET http://127.0.0.1:8085/mdm/json/menu/permission.json
 GET http://127.0.0.1:8085/mdm/json/menu/sub-menu-list.json
 
 ###
-POST http://127.0.0.1:8085/mdm/meta-data/rebuild-annotation
+POST http://127.0.0.1:8085/api/meta-data/rebuild-annotation
 
 ###
 GET http://localhost:8085/mdm/admin/permission/query?order_by=id asc,code desc&q_id@eq=123

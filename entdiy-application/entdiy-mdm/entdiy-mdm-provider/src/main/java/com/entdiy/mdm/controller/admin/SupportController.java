@@ -5,10 +5,9 @@ import com.entdiy.common.constant.UriPrefix;
 import com.entdiy.common.model.ViewResult;
 import com.entdiy.common.web.ApplicationContextHolder;
 import com.entdiy.common.web.anna.MenuData;
-import com.entdiy.mdm.entity.Menu;
 import com.entdiy.mdm.entity.Permission;
-import com.entdiy.mdm.service.IMenuService;
 import com.entdiy.mdm.service.IPermissionService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import io.swagger.annotations.Api;
@@ -35,9 +34,6 @@ import java.util.stream.Collectors;
 public class SupportController {
 
     @Autowired
-    private IMenuService iMenuService;
-
-    @Autowired
     private IPermissionService iPermissionService;
 
     @Autowired
@@ -51,8 +47,18 @@ public class SupportController {
             return ViewResult.error("元数据重建操作仅在开发模式下可用");
         }
         Map<String, Object> data = Maps.newHashMap();
-        List<Menu> menus = iMenuService.findAllCacheable();
-        List<Permission> permissions = iPermissionService.findAllCacheable();
+
+        List<Permission> all= iPermissionService.findAllCacheable();;
+        List<Permission> permissions = Lists.newArrayList();
+        List<Permission> menus = Lists.newArrayList();
+        for(Permission item:all){
+            if(item.getMenuType().equals(Permission.MENU_TYPE_ROOT)
+                    || item.getMenuType().equals(Permission.MENU_TYPE_SUB)){
+                menus.add(item);
+            }else{
+                permissions.add(item);
+            }
+        }
 
         log.info("Rebuilding menu and permission data ...");
         //合并所有类中所有Controller URL定义信息
@@ -90,19 +96,21 @@ public class SupportController {
                         //记录已处理path，下次循环跳过
                         mergedMenus.add(path);
                         //取数据库记录，如果没有则创建
-                        Menu item = menus.stream().filter(one -> path.equals(one.getNamePath())).findFirst().orElse(null);
+                        Permission item = menus.stream().filter(one -> path.equals(one.getPerms())).findFirst().orElse(null);
                         if (item == null) {
-                            item = new Menu();
+                            item = new Permission();
+                            item.setMenuType(Permission.MENU_TYPE_ROOT);
                             menus.add(item);
                         }
-                        item.setNamePath(path);
+                        item.setPerms(path);
                         String parentPath = "/" + StringUtils.join(names, "/", 0, i);
-                        Menu parent = menus.stream().filter(one -> parentPath.equals(one.getNamePath())).findFirst().orElse(null);
+                        Permission parent = menus.stream().filter(one -> parentPath.equals(one.getPerms())).findFirst().orElse(null);
                         if (parent != null) {
+                            item.setMenuType(Permission.MENU_TYPE_SUB);
                             item.setParentId(parent.getId());
                             if (parent.getLeafNode()) {
                                 parent.setLeafNode(Boolean.FALSE);
-                                iMenuService.saveOrUpdate(parent);
+                                iPermissionService.saveOrUpdate(parent);
                             }
                         }
                         item.setName(names.get(i));
@@ -111,11 +119,8 @@ public class SupportController {
                         if (i + 1 == pathLevel) {
                             item.setComponent(menuData.component());
                         }
-                        if (StringUtils.isNotBlank(menuData.comments())) {
-                            item.setRemark(menuData.comments());
-                        }
 
-                        iMenuService.saveOrUpdate(item);
+                        iPermissionService.saveOrUpdate(item);
                     }
                 }
             }
@@ -164,6 +169,7 @@ public class SupportController {
                 }
                 String name = pathName.toString();
                 item.setName(name);
+                item.setMenuType(Permission.MENU_TYPE_BTN);
               //  item.setRequestMethod(requestMethod);
                 item.setUrl(requestUri);
 

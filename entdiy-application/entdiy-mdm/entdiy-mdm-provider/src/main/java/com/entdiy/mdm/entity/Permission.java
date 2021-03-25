@@ -17,7 +17,6 @@
  */
 package com.entdiy.mdm.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.entdiy.common.entity.BaseTreeEntity;
 import io.swagger.annotations.ApiModel;
@@ -34,6 +33,10 @@ import javax.persistence.Table;
 @Table(name = "sys_permission")
 @ApiModel(value = "权限")
 public class Permission extends BaseTreeEntity {
+
+    public final static Integer MENU_TYPE_ROOT = 0;
+    public final static Integer MENU_TYPE_SUB = 1;
+    public final static Integer MENU_TYPE_BTN = 2;
 
     /**
      * 菜单名称
@@ -85,23 +88,15 @@ public class Permission extends BaseTreeEntity {
     private Integer menuType;
 
     /**
-     * 是否叶子节点: 1:是  0:不是
-     */
-    @TableField(value="is_leaf")
-    private boolean leaf;
-
-    /**
      * 是否路由菜单: 0:不是  1:是（默认值1）
      */
-    @TableField(value="is_route")
-    private boolean route;
+    private Boolean route = Boolean.TRUE;
 
 
     /**
      * 是否缓存页面: 0:不是  1:是（默认值1）
      */
-    @TableField(value="keep_alive")
-    private boolean keepAlive;
+    private Boolean keepAlive = Boolean.TRUE;
 
     /**
      * 描述
@@ -118,13 +113,13 @@ public class Permission extends BaseTreeEntity {
      */
     private boolean hidden;
 
-    /**按钮权限状态(0无效1有效)*/
-    private java.lang.String status;
+    /** 按钮权限状态(0无效1有效) */
+    private String status;
 
-    /**alwaysShow*/
-    private boolean alwaysShow;
+    /** alwaysShow */
+    private Boolean alwaysShow = Boolean.FALSE;
 
     /** 外链菜单打开方式 0/内部打开 1/外部打开 */
-    private boolean internalOrExternal;
+    private Boolean internalOrExternal = Boolean.FALSE;
 
 }
