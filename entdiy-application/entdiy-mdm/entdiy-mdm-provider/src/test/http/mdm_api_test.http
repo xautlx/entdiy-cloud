@@ -46,3 +46,6 @@ GET http://localhost:8085/mdm/meta-data/rebuild-meta-class?metaClasses=Tenant,Te
 
 ###
 GET http://localhost:8085/api/mdm/admin/permission/auth-user-permissions
+
+###
+POST http://47.96.65.93:88/api/meta-data/rebuild-annotation

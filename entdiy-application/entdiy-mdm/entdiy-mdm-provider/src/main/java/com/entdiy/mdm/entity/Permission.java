@@ -29,9 +29,9 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@TableName("auth_permission")
 @Entity
-@Table(name = "auth_permission")
+@TableName("sys_permission")
+@Table(name = "sys_permission")
 @ApiModel(value = "权限")
 public class Permission extends BaseTreeEntity {
 
