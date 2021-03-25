@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Api(tags = "用户管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/user")
+@RequestMapping("/mdm/admin/user")
 public class UserController extends BaseRestController<IUserService, User> {
 
     @Getter

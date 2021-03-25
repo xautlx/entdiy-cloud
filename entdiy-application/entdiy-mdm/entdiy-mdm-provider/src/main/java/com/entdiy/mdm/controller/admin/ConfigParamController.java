@@ -17,7 +17,6 @@
  */
 package com.entdiy.mdm.controller.admin;
 
-import com.entdiy.common.constant.UriPrefix;
 import com.entdiy.common.controller.BaseRestController;
 import com.entdiy.mdm.entity.ConfigParam;
 import com.entdiy.mdm.service.IConfigParamService;
@@ -29,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(tags = "配置参数管理")
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/config-param")
+@RequestMapping("/mdm/admin/config-param")
 public class ConfigParamController extends BaseRestController<IConfigParamService, ConfigParam> {
 
     @Getter

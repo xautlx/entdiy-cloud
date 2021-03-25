@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "部门管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/department")
+@RequestMapping("/mdm/admin/department")
 public class DepartmentController extends BaseRestController<IDepartmentService, Department> {
 
     @Getter

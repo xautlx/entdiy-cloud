@@ -156,16 +156,16 @@ public class SupportController {
                 }
                 pathName.append("/" + apiOperation.value());
 
-                Permission item = permissions.stream().filter(one -> requestUri.equals(one.getCode())).findFirst().orElse(null);
+                Permission item = permissions.stream().filter(one -> requestUri.equals(one.getPerms())).findFirst().orElse(null);
                 if (item == null) {
                     item = new Permission();
-                    item.setCode(requestUri);
+                    item.setPerms(requestUri);
                     permissions.add(item);
                 }
                 String name = pathName.toString();
                 item.setName(name);
-                item.setRequestMethod(requestMethod);
-                item.setRequestUri(requestUri);
+              //  item.setRequestMethod(requestMethod);
+                item.setUrl(requestUri);
 
                 iPermissionService.saveOrUpdate(item);
             }

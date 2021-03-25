@@ -43,3 +43,6 @@ GET http://localhost:8085/mdm/admin/permission/query?order_by=id asc,code desc&q
 
 ###
 GET http://localhost:8085/mdm/meta-data/rebuild-meta-class?metaClasses=Tenant,TenantEditDto
+
+###
+GET http://localhost:8085/api/mdm/admin/permission/auth-user-permissions

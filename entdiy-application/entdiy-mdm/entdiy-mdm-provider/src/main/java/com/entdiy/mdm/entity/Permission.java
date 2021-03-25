@@ -17,16 +17,13 @@
  */
 package com.entdiy.mdm.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.entdiy.common.entity.BaseEntity;
-import com.entdiy.common.web.json.JsonViews;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.entdiy.common.entity.BaseTreeEntity;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -36,25 +33,98 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "auth_permission")
 @ApiModel(value = "权限")
-public class Permission extends BaseEntity {
+public class Permission extends BaseTreeEntity {
 
-    @ApiModelProperty(value = "代码")
-    @Column(nullable = false, length = 128, unique = true)
-    @JsonView({JsonViews.AdminReadWrite.class, JsonViews.AdminReadOnly.class})
-    private String code;
-
-    @ApiModelProperty(value = "名称")
-    @Column(nullable = false, length = 256)
-    @JsonView({JsonViews.AdminReadWrite.class, JsonViews.AdminReadOnly.class})
+    /**
+     * 菜单名称
+     */
     private String name;
 
-    @ApiModelProperty(value = "请求方法")
-    @Column(nullable = true, length = 32)
-    @JsonView({JsonViews.AdminReadWrite.class, JsonViews.AdminReadOnly.class})
-    private String requestMethod;
+    /**
+     * 菜单权限编码，例如：“sys:schedule:list,sys:schedule:info”,多个逗号隔开
+     */
+    private String perms;
+    /**
+     * 权限策略1显示2禁用
+     */
+    private String permsType;
 
-    @ApiModelProperty(value = "请求URI")
-    @Column(nullable = true, length = 256)
-    @JsonView({JsonViews.AdminReadWrite.class, JsonViews.AdminReadOnly.class})
-    private String requestUri;
+    /**
+     * 菜单图标
+     */
+    private String icon;
+
+    /**
+     * 组件
+     */
+    private String component;
+
+    /**
+     * 组件名字
+     */
+    private String componentName;
+
+    /**
+     * 路径
+     */
+    private String url;
+    /**
+     * 一级菜单跳转地址
+     */
+    private String redirect;
+
+    /**
+     * 菜单排序
+     */
+    private Double sortNo;
+
+    /**
+     * 类型（0：一级菜单；1：子菜单 ；2：按钮权限）
+     */
+    //@Dict(dicCode = "menu_type")
+    private Integer menuType;
+
+    /**
+     * 是否叶子节点: 1:是  0:不是
+     */
+    @TableField(value="is_leaf")
+    private boolean leaf;
+
+    /**
+     * 是否路由菜单: 0:不是  1:是（默认值1）
+     */
+    @TableField(value="is_route")
+    private boolean route;
+
+
+    /**
+     * 是否缓存页面: 0:不是  1:是（默认值1）
+     */
+    @TableField(value="keep_alive")
+    private boolean keepAlive;
+
+    /**
+     * 描述
+     */
+    private String description;
+
+    /**
+     * 是否配置菜单的数据权限 1是0否 默认0
+     */
+    private Integer ruleFlag;
+
+    /**
+     * 是否隐藏路由菜单: 0否,1是（默认值0）
+     */
+    private boolean hidden;
+
+    /**按钮权限状态(0无效1有效)*/
+    private java.lang.String status;
+
+    /**alwaysShow*/
+    private boolean alwaysShow;
+
+    /** 外链菜单打开方式 0/内部打开 1/外部打开 */
+    private boolean internalOrExternal;
+
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "字典列表数据管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/dict-item")
+@RequestMapping("/mdm/admin/dict-item")
 public class DictItemController extends BaseRestController<IDictItemService, DictItem> {
 
     @Getter

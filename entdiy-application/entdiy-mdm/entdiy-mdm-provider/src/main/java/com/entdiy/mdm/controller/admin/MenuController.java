@@ -29,10 +29,10 @@ import java.util.List;
  */
 @Api(tags = "菜单管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/menu")
+@RequestMapping("/mdm/admin/menu")
 @MenuData(value = "/系统管理/菜单管理",
         component = "/mdm/MenuList",
-        entryUri = "/mdm" + UriPrefix.ADMIN + "/menu/query")
+        entryUri = "/mdm/admin/menu/query")
 public class MenuController extends BaseRestController<IMenuService, Menu> {
 
     @Getter

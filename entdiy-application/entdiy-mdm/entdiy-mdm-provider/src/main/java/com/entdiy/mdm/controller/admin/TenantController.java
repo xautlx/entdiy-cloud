@@ -37,10 +37,10 @@ import java.io.Serializable;
  */
 @Api(tags = "租户管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/tenant")
+@RequestMapping("/mdm/admin/tenant")
 @MenuData(value = "/系统管理/租户管理",
         component = "/mdm/TenantList",
-        entryUri = "/mdm" + UriPrefix.ADMIN + "/tenant" + "/query")
+        entryUri = "/mdm/admin/tenant" + "/query")
 public class TenantController extends BaseRestController<ITenantService, Tenant> {
 
     @Getter

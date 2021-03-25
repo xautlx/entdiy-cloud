@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  */
 @Api(tags = "字典主数据管理")
 @RestController
-@RequestMapping("/mdm" + UriPrefix.ADMIN + "/dict")
+@RequestMapping("/mdm/admin/dict")
 public class DictController extends BaseRestController<IDictService, Dict> {
 
     @Getter
