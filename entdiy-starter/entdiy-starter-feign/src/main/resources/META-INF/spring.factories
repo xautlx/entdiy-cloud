@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.entdiy.feign.autoconfigure.FeignConfig,\
-    com.entdiy.feign.autoconfigure.FeignClientConfig
