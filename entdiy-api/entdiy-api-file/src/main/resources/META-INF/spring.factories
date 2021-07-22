@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.entdiy.system.api.factory.RemoteFileFallbackFactory

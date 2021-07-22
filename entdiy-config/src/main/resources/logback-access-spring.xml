@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- always a good idea to install OnConsoleStatusListener %h %l %u %user %date "%r" %s %b-->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.access.net.URLEvaluator">
+                <URL>/actuator</URL>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} DEBUG %fullRequest%n%n%fullResponse</pattern>
+        </encoder>
+    </appender>
+
+    <appender-ref ref="STDOUT" />
+</configuration>

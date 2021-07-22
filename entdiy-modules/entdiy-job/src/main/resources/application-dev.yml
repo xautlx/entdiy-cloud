@@ -1,0 +1,14 @@
+server:
+  port: 9203
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          # 生成环境设置为 com.mysql.cj.jdbc.Driver，关闭SQL打印功能
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          # 生成环境设置前缀为 jdbc:mysql:// ，关闭SQL打印功能
+          url: jdbc:p6spy:mysql://${MYSQL_SERVER_HOST:127.0.0.1}:3306/entdiy_job?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+          username: entdiy
+          # 生成环境注意修改为不同的复杂密码
+          password: entdiyP@ssword123

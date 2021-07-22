@@ -1,0 +1,22 @@
+server:
+  port: 9100
+
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456
+  boot:
+    admin:
+      ui:
+        title: 服务状态监控<br>演示
+      discovery:
+        ignored-services:
+          - entdiy-monitor
+          - entdiy-druid
+  thymeleaf:
+    check-template-location: false
+    check-template: false
+logging:
+  level:
+    ROOT: INFO

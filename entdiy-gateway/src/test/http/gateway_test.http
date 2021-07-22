@@ -1,0 +1,63 @@
+# curl 'http://192.168.3.250:90/api/system/user/getInfo'
+#  -H 'Connection: keep-alive'
+#  -H 'Accept: application/json, text/plain, */*'
+#  -H 'Authorization: Bearer 00043431364-8775-48cb-a69e-89a7e9f57f92'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36'
+#  -H 'Referer: http://192.168.3.250:90/login?redirect=%2Findex'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8'
+#  -H 'Cookie: Admin-Expires-In=7200; Admin-Token=00043431364-8775-48cb-a69e-89a7e9f57f92' \
+GET http://127.0.0.1:8080/system/user/getInfo
+Authorization: Bearer 000a3e09549-b2fd-4147-bf7f-12f43665b3f5
+
+###
+
+# curl 'http://47.96.65.93:99/api/validate/code'
+#  -H 'Connection: keep-alive'
+#  -H 'Accept: application/json, text/plain, */*'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
+#  -H 'Origin: http://47.96.65.93:90'
+#  -H 'Referer: http://47.96.65.93:90/'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8'
+####
+GET http://127.0.0.1:8080/validate/code
+Connection: keep-alive
+Accept: application/json, text/plain, */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36
+Origin: http://47.96.65.93:90
+Referer: http://47.96.65.93:90/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+
+###
+
+
+# curl 'http://47.96.65.93:88/api/auth/login'
+#  -H 'Connection: keep-alive'
+#  -H 'Accept: application/json, text/plain, */*'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
+#  -H 'Content-Type: application/json;charset=UTF-8'
+#  -H 'Origin: http://47.96.65.93:88'
+#  -H 'Referer: http://47.96.65.93:88/login?redirect=%2Findex'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8'
+#  -H 'Cookie: lang=zh-CN'
+#  --data-raw '{"username":"admin","password":"admin123","code":"48","uuid":"6b112df507fa45b78a16d5176b1890a3"}'
+#  --compressed
+POST http://127.0.0.1:8080/auth/login
+Connection: keep-alive
+Accept: application/json, text/plain, */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36
+Origin: http://47.96.65.93:88
+Referer: http://47.96.65.93:88/login?redirect=%2Findex
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: lang=zh-CN
+Content-Type: application/json;charset=UTF-8
+
+{"username":"admin","password":"admin123","code":"35","uuid":"433e336176704bfcb25a6930f70348f1"}
+
+
+
+
+###
+GET http://127.0.0.1:8080/validate/code
+
+
+

@@ -1,0 +1,11 @@
+server:
+  servlet:
+    context-path: /monitor
+spring:
+  profiles:
+    # 详见config模块下面的bootstrap-nacos.yml全局定义，便于统一设置Nacos连接配置
+    include: nacos
+  application:
+    # 必须在当前bootstrap配置文件中定义应用名称，基于此应用名称访问对应Nacos配置文件
+    name: entdiy-monitor
+

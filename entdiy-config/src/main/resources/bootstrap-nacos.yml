@@ -1,0 +1,37 @@
+# 统一设置Nacos连接配置
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    # 默认为本地共享开发配置模式，其他线上部署通过环境变量全局设置
+    active: local
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        # 开发环境默认关闭Nacos访问，直接用本地yml配置
+        enabled: ${NACOS_ENABLED:false}
+        # 开发环境默认命令空间
+        namespace: ${NACOS_NAMESPACE:MASTER}
+        # 应用注册定义，解决Docker部署取容器内IP导致服务无法访问问题
+        ip: ${NACOS_DISCOVERY_IP:}
+        # 如果Docker容器暴露端口与应用端口不一致，则需要定义此属性为Docker暴露端口号
+        port: ${NACOS_DISCOVERY_PORT:-1}
+      config:
+        # 配置中心地址
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        # 开发环境默认关闭Nacos访问，直接用本地yml配置
+        enabled: ${NACOS_ENABLED:false}
+        # 开发环境默认命令空间
+        namespace: ${NACOS_NAMESPACE:MASTER}
+        # 配置文件格式
+        file-extension: yaml
+        # 共享配置
+        shared-configs:
+            # 此处application-shared.yaml和本地同名配置文件没有关系，引用的是Nacos上对应文件的配置
+          - data-id: application-shared.yaml
+            # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
+            group: DEFAULT_GROUP
+            # 是否自动刷新配置，默认为 false
+            refresh: true

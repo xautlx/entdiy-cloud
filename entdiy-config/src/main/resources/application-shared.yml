@@ -1,0 +1,161 @@
+# 本地开发共享全局配置，线上环境通过Nacos的shared-configs覆盖配置
+spring:
+  autoconfigure:
+    # 屏蔽默认Datasource配置加载，应用配置中采用dynamic-datasource-spring-boot-starter方式
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure,
+      org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  redis:
+    host: ${REDIS_SERVER_HOST:127.0.0.1}
+    port: 6379
+    password: redisP@ssword123
+    database: 0
+  datasource:
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/actuator/*"
+        session-stat-enable: true
+        profile-enable: true
+      stat-view-servlet:
+        url-pattern: /druid/*
+        enabled: true
+        allow: ""
+        # 由于 druid monitor 的登录校验基于 session 设计，所有在无状态的微服务中不适用。
+        # 建议直接暴露所有 druid 相关的端点，通过前置网关统一接口权限。
+        #loginUsername: admin
+        #loginPassword: 123456
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://${MYSQL_SERVER_HOST:127.0.0.1}:3306/entdiy_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+          username: entdiy
+          password: entdiyP@ssword123
+          # 从库数据源
+          # slave:
+          #driver-class-name:
+          #username:
+          #password:
+          #url:
+      # 指定默认数据源名称
+      primary: master
+  flyway:
+    enabled: true
+    table: flyway_${spring.application.name}
+    baseline-version: 0.0.0
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    clean-disabled: true
+    placeholders:
+      flyway-table: ${spring.flyway.table}
+      spring.application.name: ${spring.application.name}
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.entdiy.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  global-config:
+    banner: false
+    #刷新mapper 调试神器
+    refresh: true
+    db-config:
+      #主键类型 @see com.baomidou.mybatisplus.annotation.IdType
+      id-type: 3
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      db-column-underline: true
+      #设置表前缀
+      #table-prefix: sys_
+      #数据库大写下划线转换
+      #capital-mode: true
+      #序列接口实现类配置
+      #key-generator: com.baomidou.springboot.xxx
+      #逻辑删除配置
+      logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      #数据库类型
+      db-type: mysql
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+
+#请求处理的超时时间
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+# feign 配置
+feign:
+  sentinel:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+swagger:
+  # 生产环境设置为false
+  enabled: true
+  basePackage: com.entdiy
+  title: API接口文档
+  license: Powered By EntDIY
+  licenseUrl: https://www.entdiy.com
+logging:
+  # 测试和生产配置为 classpath:logback-spring-prd.xml
+  config: classpath:logback-spring-dev.xml
+  level:
+    # 测试和生产配置为 WARN
+    com.entdiy: DEBUG
+# https://github.com/akkinoc/logback-access-spring-boot-starter
+logback:
+  access:
+    # 完整打印HTTP请求和响应，一般在开发或调需要设置为true，生产环境设置为false
+    enabled: true
+    config: "classpath:logback-access-spring.xml"
+    useServerPortInsteadOfLocalPort: true
+    # for Tomcat.
+    tomcat:
+      # Whether to enable request attributes to work with the RemoteIpValve enabled with "server.useForwardHeaders".
+      # Defaults to the presence of the RemoteIpValve.
+      enableRequestAttributes: true

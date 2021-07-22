@@ -1,0 +1,28 @@
+###
+# curl 'http://47.96.65.93:88/api/auth/login'
+#  -H 'Connection: keep-alive'
+#  -H 'Accept: application/json, text/plain, */*'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36'
+#  -H 'Content-Type: application/json;charset=UTF-8'
+#  --data-raw '{"username":"admin","password":"admin123","code":"8","uuid":"e7cc9e8d6efe40c4a4ef7c56c0c09ccf"}'
+POST http://47.96.65.93:88/api/auth/login
+Content-Type: application/json;charset=UTF-8
+
+{"username":"admin","password":"admin123","code":"5","uuid":"e7cc9e8d6efe40c4a4ef7c56c0c09ccf"}
+
+###
+
+###
+GET http://47.96.65.93:88/api/validate/code
+
+###
+GET http://127.0.0.1:8080/validate/code
+
+###
+GET http://127.0.0.1:9201/ping
+
+###
+GET http://127.0.0.1:9201/ping?exception=true
+
+###
+GET http://127.0.0.1:9201/actuator/health

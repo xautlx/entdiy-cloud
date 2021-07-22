@@ -1,0 +1,57 @@
+version: '3'
+services:
+  nacos:
+    image: nacos/nacos-server:1.4.1
+    container_name: nacos
+    hostname: nacos-server
+    environment:
+      TZ: 'Asia/Shanghai'
+      JVM_XMS: '256m'
+      JVM_XMX: '512m'
+      PREFER_HOST_MODE: hostname
+      MODE: standalone
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: mysql-server
+      MYSQL_SERVICE_DB_NAME: entdiy_nacos
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: entdiy
+      MYSQL_SERVICE_PASSWORD: entdiyP@ssword123
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
+    volumes:
+      - ./nacos/logs:/home/nacos/logs
+      - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+    restart: on-failure:3
+    networks:
+      - basis-service_default
+  loki:
+    container_name: loki
+    hostname: loki-server
+    image: grafana/loki
+    environment:
+      TZ: 'Asia/Shanghai'
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: on-failure:3
+    networks:
+      - basis-service_default
+  grafana:
+    container_name: grafana
+    hostname: grafana-server
+    image: grafana/grafana
+    user: root
+    volumes:
+      - ./grafana/conf:/etc/grafana
+      - ./grafana/data:/var/lib/grafana
+    environment:
+      TZ: 'Asia/Shanghai'
+    ports:
+      - "3000:3000"
+    restart: on-failure:3
+    networks:
+      - basis-service_default
+networks:
+  basis-service_default:
+    external: true

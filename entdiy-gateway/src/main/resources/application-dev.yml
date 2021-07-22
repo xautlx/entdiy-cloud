@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+entdiy:
+  # 如果以allinone模式开发部署应用则取消此项注释
+  allinone-uri: http://127.0.0.1:9500
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+        # 认证中心
+        - id: entdiy-auth
+          #uri: lb://entdiy-auth
+          uri: ${entdiy.allinone-uri:http://127.0.0.1:9204}
+          predicates:
+            - Path=/auth/**
+          filters:
+            # 验证码处理
+            - CacheRequestFilter
+            - ValidateCodeFilter
+            - StripPrefix=1
+        # 代码生成
+        - id: entdiy-gen
+          #uri: lb://entdiy-gen
+          uri: ${entdiy.allinone-uri:http://127.0.0.1:9202}
+          predicates:
+            - Path=/code/**
+          filters:
+            - StripPrefix=1
+        # 定时任务
+        - id: entdiy-job
+          #uri: lb://entdiy-job
+          uri: ${entdiy.allinone-uri:http://127.0.0.1:9203}
+          predicates:
+            - Path=/schedule/**
+          filters:
+            - StripPrefix=1
+        # 系统模块
+        - id: entdiy-system
+          #uri: lb://entdiy-system
+          uri: ${entdiy.allinone-uri:http://127.0.0.1:9201}
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+        # 文件服务
+        - id: entdiy-file
+          #uri: lb://entdiy-file
+          uri: ${entdiy.allinone-uri:http://127.0.0.1:9300}
+          predicates:
+            - Path=/file/**
+          filters:
+            - StripPrefix=1
+        # Boot Admin 监控
+        - id: entdiy-monitor
+          #uri: lb://entdiy-monitor
+          uri: http://127.0.0.1:9100
+          predicates:
+            - Path=/monitor/**
+        # Druid SQL 监控
+        - id: entdiy-druid
+          #uri: lb://entdiy-druid
+          uri: http://127.0.0.1:9101
+          predicates:
+            - Path=/druid/**
+# 不校验白名单
+ignore:
+  whites:
+    - /*/pub/**
+    - /monitor/**
+    - /druid/**
+    - /auth/logout
+    - /auth/login
+    - /*/v2/api-docs
+    - /csrf
+

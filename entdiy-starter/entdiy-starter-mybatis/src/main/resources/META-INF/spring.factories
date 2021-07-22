@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.entdiy.mybatisplus.autoconfigure.MyBatisPlusConfig, \
+  com.entdiy.common.datascope.aspect.DataScopeAspect

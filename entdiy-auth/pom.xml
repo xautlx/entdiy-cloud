@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.entdiy</groupId>
+        <artifactId>entdiy-cloud</artifactId>
+        <version>2.5.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>entdiy-auth</artifactId>
+
+    <description>entdiy-auth认证授权中心</description>
+
+    <properties>
+        <jar-output-dir>../quick-start/apps-service/artifacts</jar-output-dir>
+        <git-metadata-dir>../.git</git-metadata-dir>
+    </properties>
+
+    <dependencies>
+
+        <!-- SpringBoot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-common-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-api-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-starter-redis</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-starter-feign</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-starter-swagger</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

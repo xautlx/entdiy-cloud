@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.entdiy</groupId>
+        <artifactId>entdiy-cloud</artifactId>
+        <version>2.5.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>entdiy-api-system</module>
+        <module>entdiy-api-file</module>
+    </modules>
+
+    <artifactId>entdiy-api</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        entdiy-api接口
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.entdiy</groupId>
+            <artifactId>entdiy-common-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-hystrix</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

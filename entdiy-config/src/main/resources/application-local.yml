@@ -1,0 +1,10 @@
+# 本地开发共享全局配置，线上环境通过Nacos的shared-configs覆盖配置
+spring:
+  profiles:
+    # 按顺序加载本地 application-shared.yml 以及各个应用中的 application-dev.yml，实现本地开发配置的叠加
+    include: shared,dev
+app:
+  feign:
+    # 本地开发由于没有Nacos服务路由，则需要手工指定FeignClient服务定位到本地对应运行服务，进行联调
+    url:
+      system: http://127.0.0.1:9201

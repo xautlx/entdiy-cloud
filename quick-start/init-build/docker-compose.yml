@@ -1,0 +1,14 @@
+version: '3'
+services:
+  entdiy-build:
+    container_name: entdiy-build
+    build: .
+    image: entdiy-build
+    environment:
+      TZ: 'Asia/Shanghai'
+    volumes:
+      - ../../../cache/repository:/root/.m2/repository
+      - ../../../cache/node_modules:/build/entdiy-ui/node_modules
+      - ../..:/entdiy-cloud
+    entrypoint: /entrypoint.sh
+    restart: on-failure:3

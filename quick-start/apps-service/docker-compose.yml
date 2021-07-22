@@ -1,0 +1,166 @@
+version: '3.4'
+
+x-logging:
+  &loki-logging
+  driver: loki
+  options:
+    loki-url: "http://127.0.0.1:3100/loki/api/v1/push"
+    max-size: "50m"
+    max-file: "10"
+    loki-pipeline-stages: |
+      - multiline:
+          firstline: '^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}'
+      - regex:
+          expression: '^(?P<time>\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\s+(?P<level>\S+).*'
+      - labels:
+          level:
+services:
+  entdiy-system:
+    container_name: entdiy-system
+    hostname: entdiy-system
+    ports:
+      - 9201:9201
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-system.jar:/apps/entdiy-system.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-system.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-auth:
+    container_name: entdiy-auth
+    hostname: entdiy-auth
+    ports:
+      - 9204:9204
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-auth.jar:/apps/entdiy-auth.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-auth.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-file:
+    container_name: entdiy-file
+    hostname: entdiy-file
+    ports:
+      - 9300:9300
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-file.jar:/apps/entdiy-file.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-file.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-gen:
+    container_name: entdiy-gen
+    hostname: entdiy-gen
+    ports:
+      - 9202:9202
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-gen.jar:/apps/entdiy-gen.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-gen.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-job:
+    container_name: entdiy-job
+    hostname: entdiy-job
+    ports:
+      - 9203:9203
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-job.jar:/apps/entdiy-job.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-job.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-monitor:
+    container_name: entdiy-monitor
+    hostname: entdiy-monitor
+    ports:
+      - 9100:9100
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-monitor.jar:/apps/entdiy-monitor.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-monitor.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-druid:
+    container_name: entdiy-druid
+    hostname: entdiy-druid
+    ports:
+      - 9101:9101
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-druid.jar:/apps/entdiy-druid.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-druid.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  entdiy-gateway:
+    container_name: entdiy-gateway
+    hostname: entdiy-gateway
+    ports:
+      - 8080:8080
+    build: .
+    image: x-openjdk:8
+    env_file:
+      - ./global.env
+    volumes:
+      - ./artifacts/entdiy-gateway.jar:/apps/entdiy-gateway.jar
+    entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-gateway.jar
+    restart: on-failure:3
+    logging: *loki-logging
+    networks:
+      - basis-service_default
+  nginx:
+    container_name: nginx
+    image: nginx:1.20.0
+    ports:
+      - 80:80
+    environment:
+      TZ: 'Asia/Shanghai'
+    volumes:
+      - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/config/conf.d:/etc/nginx/conf.d
+      - ./nginx/html/www:/usr/share/nginx/html/www
+      - ./artifacts/nginx-html/admin:/usr/share/nginx/html/admin
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - entdiy-gateway
+    restart: on-failure:3
+    networks:
+      - basis-service_default
+networks:
+  basis-service_default:
+    external: true

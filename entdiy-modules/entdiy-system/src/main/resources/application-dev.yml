@@ -1,0 +1,43 @@
+server:
+  port: 9201
+
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:p6spy:mysql://${MYSQL_SERVER_HOST:127.0.0.1}:3306/entdiy_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+          username: entdiy
+          password: entdiyP@ssword123
+  # seata: true    # 开启seata代理，开启后默认每个数据源都代理，如果某个不需要代理可单独关闭
+# seata配置
+seata:
+  # 默认关闭，如需启用spring.datasource.dynami.seata需要同时开启
+  enabled: false
+  # Seata 应用编号，默认为 ${spring.application.name}
+  application-id: ${spring.application.name}
+  # Seata 事务组编号，用于 TC 集群名
+  tx-service-group: ${spring.application.name}-group
+  # 关闭自动代理
+  enable-auto-data-source-proxy: false
+  # 服务配置项
+  service:
+    # 虚拟组和分组的映射
+    vgroup-mapping:
+      entdiy-system-group: default
+  config:
+    type: nacos
+    nacos:
+      serverAddr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      namespace:
+app:
+  buildVersion: 1.0.0
+

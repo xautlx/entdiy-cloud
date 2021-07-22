@@ -1,0 +1,14 @@
+server:
+  port: 9202
+
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          # 目前代码生成组件暂不支持跨数据库获取数据库表，只能暂时指向业务数据库并在其中初始化代码生成所需表
+          # TODO 待优化
+          url: jdbc:p6spy:mysql://${MYSQL_SERVER_HOST:127.0.0.1}:3306/entdiy_system?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+          username: entdiy
+          password: entdiyP@ssword123
