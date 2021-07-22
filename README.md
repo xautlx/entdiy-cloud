@@ -69,7 +69,7 @@ com.entdiy
 ## 项目参考
 
 * 本项目基于 [RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud) 扩展定制，感谢若依开源项目作者。
-本项目保留若依项目原始介绍页面详见： [RuoYi-Cloud.md](./RRuoYi-Cloud.md) 。
+本项目保留若依项目原始介绍页面详见： [RuoYi-Cloud.md](./RuoYi-Cloud.md) 。
 
 * 本项目基于作者工作及之前多个应用开发框架开源项目经验，
  [s2jh4net@gitee.com](https://gitee.com/xautlx/s2jh4net)  / [s2jh4net@github.com](https://github.com/xautlx/s2jh4net) / 
