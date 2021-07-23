@@ -1,7 +1,12 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">EntDIY易点微服务应用框架</h3>
+
+      <div class="logo-wrapper">
+        <div class="logo">
+          <img :src="logo" alt="logo"> 易点微服务应用开发框架
+        </div>
+      </div>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
@@ -57,11 +62,13 @@
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
+import logo from '@/assets/logo/logo.png'
 
 export default {
   name: "Login",
   data() {
     return {
+      logo,
       codeUrl: "",
       cookiePassword: "",
       loginForm: {
@@ -199,5 +206,28 @@ export default {
 }
 .login-code-img {
   height: 38px;
+}
+
+.logo-wrapper{
+  position: relative;
+  height: 42px;
+  background: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f1e8e8;
+  margin-bottom: 30px;
+}
+.logo{
+  position: absolute;
+  left: 0px;
+  top: 6px;
+  line-height: 30px;
+  color: #707070;
+  font-weight: 600;
+  font-size: 22px;
+  white-space: nowrap;
+  > img{
+    height: 30px;
+    vertical-align: top;
+  }
 }
 </style>
