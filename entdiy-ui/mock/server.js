@@ -261,6 +261,9 @@ server.get('/system/menu/getRouters', (req, res) => {
     }]
   })
 })
+server.delete('/auth/logout', (req, res) => {
+  res.json({})
+})
 
 // To handle POST, PUT and PATCH you need to use a body-parser
 // You can use the one used by JSON Server

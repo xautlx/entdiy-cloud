@@ -4,7 +4,7 @@
 
       <div class="logo-wrapper">
         <div class="logo">
-          <img :src="logo" alt="logo"> 易点微服务应用开发框架
+          <img :src="logo" alt="logo"> 易点.微服务应用开发框架
         </div>
       </div>
       <el-form-item prop="username">
