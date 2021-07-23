@@ -80,7 +80,7 @@ ac720b8fcfdb        loki         Loki Logging Driver   true
 **********************************************
 ```
 
-即可打开浏览器访问体验了，当然如果不是在本机运行，只需改成目标机器IP地址访问即可。
+即可打开浏览器访问 http://127.0.0.1/admin/ 体验了，当然如果不是在本机运行，只需改成目标机器IP地址访问即可。
 正常情况本地即可与 **[http://cloud.entdiy.com/admin](http://cloud.entdiy.com/admin)** 完全一致的操作和功能体验。
 
 ## 更多参考
