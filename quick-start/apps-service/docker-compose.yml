@@ -25,7 +25,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-system.jar:/apps/entdiy-system.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-system.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -41,7 +41,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-auth.jar:/apps/entdiy-auth.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-auth.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -57,7 +57,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-file.jar:/apps/entdiy-file.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-file.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -73,7 +73,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-gen.jar:/apps/entdiy-gen.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-gen.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -89,7 +89,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-job.jar:/apps/entdiy-job.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-job.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -105,7 +105,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-monitor.jar:/apps/entdiy-monitor.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-monitor.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -121,7 +121,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-druid.jar:/apps/entdiy-druid.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-druid.jar
     restart: on-failure:3
     logging: *loki-logging
@@ -137,7 +137,7 @@ services:
     env_file:
       - ./global.env
     volumes:
-      - ./artifacts/entdiy-gateway.jar:/apps/entdiy-gateway.jar
+      - ./artifacts:/apps
     entrypoint: java -jar -Xms256m -Xmx512m /apps/entdiy-gateway.jar
     restart: on-failure:3
     logging: *loki-logging
