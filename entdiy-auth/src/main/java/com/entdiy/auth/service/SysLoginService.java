@@ -5,9 +5,10 @@ import com.entdiy.common.core.constant.UserConstants;
 import com.entdiy.common.core.domain.R;
 import com.entdiy.common.core.enums.UserStatus;
 import com.entdiy.common.core.exception.BaseException;
-import com.entdiy.common.security.utils.SecurityUtils;
+import com.entdiy.common.core.exception.CustomException;
 import com.entdiy.common.core.utils.StringUtils;
 import com.entdiy.common.security.model.LoginUser;
+import com.entdiy.common.security.utils.SecurityUtils;
 import com.entdiy.system.api.RemoteLogService;
 import com.entdiy.system.api.RemoteUserService;
 import com.entdiy.system.api.domain.SysUser;
@@ -16,8 +17,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 登录校验方法
- *
- *
  */
 @Component
 public class SysLoginService {
@@ -33,20 +32,17 @@ public class SysLoginService {
     public LoginUser login(String username, String password) {
         // 用户名或密码为空 错误
         if (StringUtils.isAnyBlank(username, password)) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户/密码必须填写");
-            throw new BaseException("用户/密码必须填写");
+            throw new CustomException("用户/密码必须填写");
         }
         // 密码如果不在指定范围内 错误
         if (password.length() < UserConstants.PASSWORD_MIN_LENGTH
                 || password.length() > UserConstants.PASSWORD_MAX_LENGTH) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户密码不在指定范围");
-            throw new BaseException("用户密码不在指定范围");
+            throw new CustomException("用户密码不在指定范围");
         }
         // 用户名不在指定范围内 错误
         if (username.length() < UserConstants.USERNAME_MIN_LENGTH
                 || username.length() > UserConstants.USERNAME_MAX_LENGTH) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户名不在指定范围");
-            throw new BaseException("用户名不在指定范围");
+            throw new CustomException("用户名不在指定范围");
         }
         // 查询用户信息
         R<LoginUser> userResult = remoteUserService.getUserInfo(username);
@@ -56,23 +52,20 @@ public class SysLoginService {
         }
 
         if (StringUtils.isNull(userResult) || StringUtils.isNull(userResult.getData())) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "登录用户不存在");
-            throw new BaseException("登录用户：" + username + " 不存在");
+            throw new CustomException("用户登录信息不正确");
         }
         LoginUser userInfo = userResult.getData();
         SysUser user = remoteUserService.getSysUser(username).getData();
         if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号已被删除");
-
-            throw new BaseException("对不起，您的账号：" + username + " 已被删除");
+            throw new CustomException("对不起，您的账号状态异常");
         }
         if (UserStatus.DISABLE.getCode().equals(user.getStatus())) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户已停用，请联系管理员");
-            throw new BaseException("对不起，您的账号：" + username + " 已停用");
+            throw new CustomException("对不起，您的账号已停用");
         }
         if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
-            remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户密码错误");
-            throw new BaseException("用户不存在/密码错误");
+            //TODO 密码错误次数检测控制
+            //remoteLogService.saveLogininfor(username, Constants.LOGIN_FAIL, "用户密码错误");
+            throw new CustomException("用户不存在或密码错误");
         }
         remoteLogService.saveLogininfor(username, Constants.LOGIN_SUCCESS, "登录成功");
         return userInfo;
