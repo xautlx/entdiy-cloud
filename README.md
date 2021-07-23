@@ -67,11 +67,9 @@ com.entdiy
 
 ## 快速开始
 
-[Quick Start | 一键本地部署体验](./quick-start/README.md) 
+[Quick Start | 一键本地部署](./quick-start/README.md) : 本地Docker环境一键运行整个项目的编译打包、部署运行，快速体验项目所有功能。
 
-[Snapshot | 系统快照截图](./quick-start/Snapshot.md) 
-
-注：目前仅提供一套脚本和配置实现Docker化一键本地部署启动应用，供本地流畅体验整套开发框架的构建部署运行和原型功能。
+[Snapshot | 系统快照截图](./quick-start/Snapshot.md) : 系统主要功能和服务界面截图，快速了解整个系统涵盖的主要内容。
 
 ## 项目参考
 
