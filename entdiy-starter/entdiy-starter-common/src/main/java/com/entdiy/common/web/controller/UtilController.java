@@ -22,9 +22,11 @@ import java.util.stream.Collectors;
 public class UtilController {
 
     @GetMapping("/pub/ping")
-    public String ping(@RequestParam(value = "exception", required = false) Boolean exception) {
-        if (Boolean.TRUE.equals(exception)) {
-            throw new CustomException("异常响应");
+    public String ping(@RequestParam(value = "et", required = false) String et) {
+        if ("1".equals(et)) {
+            throw new CustomException("预定义异常演示消息");
+        } else if ("2".equals(et)) {
+            throw new RuntimeException("系统异常演示消息");
         }
         return "Pong at " + LocalDateTime.now();
     }
