@@ -1,8 +1,8 @@
 ## 项目简介
 
-基于 VUE/Element-UI 和 Spring Boot/Spring Cloud & Alibaba 前后端技术栈的微服务应用开发框架。
+基于 Vue/Element-UI 和 Spring Boot/Spring Cloud & Alibaba 前后端技术栈的微服务应用开发框架。
 
-* VUE / Element-UI
+* Vue / Element-UI
 * Spring Boot / Spring Cloud & Alibaba / Nacos / Sentinel / Seata
 * Spring Cloud Gateway / Openfeign / Spring Security
 * Spring / MyBatis Plus / Flyway / Quartz
