@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'EntDIY易点微服务应用框架',
+  title: 'EntDIY微服务应用开发框架',
 
   /**
    * 侧边栏主题 深色主题theme-dark，浅色主题theme-light

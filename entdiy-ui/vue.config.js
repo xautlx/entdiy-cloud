@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'EntDIY易点微服务应用框架' // 标题
+const name = defaultSettings.title || 'EntDIY 易点.微服务应用开发框架' // 标题
 
 const port = process.env.port || process.env.npm_config_port || 80 // 端口
 

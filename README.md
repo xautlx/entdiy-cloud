@@ -2,6 +2,13 @@
 
 基于 VUE/Element-UI 和 Spring Boot/Spring Cloud & Alibaba 前后端技术栈的微服务应用开发框架。
 
+* VUE / Element-UI
+* Spring Boot / Spring Cloud & Alibaba / Nacos / Sentinel / Seata
+* Spring Cloud Gateway / Openfeign / Spring Security
+* Spring / MyBatis Plus / Flyway / Quartz
+* Lombok / Swagger / Knife4j / Logback / Logback Access / P6Spy
+* Spring Boot Actuator&Admin / Druid Admin / Loki / Grafana
+* MySQL / Redis / Docker / Docker-Compose
 
 项目托管同步更新GIT资源库：
 

@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: 'EntDIY易点微服务应用框架',
+      title: 'EntDIY微服务应用开发框架',
       logo: logoImg
     }
   }
