@@ -17,6 +17,7 @@
         <module>entdiy-starter-flyway</module>
         <module>entdiy-starter-swagger</module>
         <module>entdiy-starter-redis</module>
+        <module>entdiy-starter-common</module>
         <module>entdiy-starter-web</module>
     </modules>
 
