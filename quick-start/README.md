@@ -59,6 +59,12 @@ ac720b8fcfdb        loki         Loki Logging Driver   true
 
 ## 一键运行
 
+注：
+
+* 目前只提供了 Mac OS/Linux 系统的shell执行脚本，至于Windows系统请直接参考quick-start.sh文件内容按步骤含义执行对应Windows命令即可。
+* 执行过程基于源码构建涉及到Maven在线下载依赖jar组件、Node构建在线下载npm组件，整个执行过程耗时依赖于运行电脑的带宽以及硬件配置有关，请耐心等待。
+线上体验应用就是完全基于Jenkins自动化构建调用quick-start.sh一键构建部署运行的，正常情况相关执行脚本和配置是能完成从源码到构建部署运行本地访问的。
+
 上述Docker环境安装运行起来后，即可进入quick-start目录，执行一键运行脚本：
 
 ```shell script
@@ -75,20 +81,35 @@ ac720b8fcfdb        loki         Loki Logging Driver   true
 ```
 
 即可打开浏览器访问体验了，当然如果不是在本机运行，只需改成目标机器IP地址访问即可。
+正常情况本地即可与 **[http://cloud.entdiy.com/admin](http://cloud.entdiy.com/admin)** 完全一致的操作和功能体验。
 
-注：
+## 更多参考
 
-* 目前只提供了 Mac OS/Linux 系统的shell执行脚本，至于Windows系统请直接参考quick-start.sh文件内容按步骤含义执行对应Windows命令即可。
-* 执行过程基于源码构建涉及到Maven在线下载依赖jar组件、Node构建在线下载npm组件，整个执行过程耗时依赖于运行电脑的带宽以及硬件配置有关，请耐心等待。
-线上体验应用就是完全基于Jenkins自动化构建调用quick-start.sh一键构建部署运行的，正常情况相关执行脚本和配置是能完成从源码到构建部署运行本地访问的。
+全部运行起来查看如下docker服务列表：
 
-
-## 资源说明
+```shell script
+[root@localhost ~]# docker ps -a
+CONTAINER ID   IMAGE                      COMMAND                  CREATED        STATUS        PORTS                               NAMES
+dde8d50c6f2f   nginx:1.20.0               "/docker-entrypoint.…"   14 hours ago   Up 14 hours   0.0.0.0:80->80/tcp                  nginx
+d793943532c3   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:8080->8080/tcp              entdiy-gateway
+4e58cb878b26   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9300->9300/tcp              entdiy-file
+4ea30caa0f13   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9204->9204/tcp              entdiy-auth
+7006581dfd9f   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9203->9203/tcp              entdiy-job
+7829aba95e07   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9202->9202/tcp              entdiy-gen
+2d72252a333f   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9101->9101/tcp              entdiy-druid
+3ca7a6da779a   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9100->9100/tcp              entdiy-monitor
+cac07b3e903e   x-openjdk:8                "java -jar -Xms256m …"   14 hours ago   Up 14 hours   0.0.0.0:9201->9201/tcp              entdiy-system
+d0cce2653b24   nacos/nacos-server:1.4.1   "bin/docker-startup.…"   14 hours ago   Up 14 hours   0.0.0.0:8848->8848/tcp              nacos
+492e81354e26   grafana/grafana            "/run.sh"                14 hours ago   Up 14 hours   0.0.0.0:3000->3000/tcp              grafana
+00c652eb588d   grafana/loki               "/usr/bin/loki -conf…"   14 hours ago   Up 14 hours   0.0.0.0:3100->3100/tcp              loki
+71460a00439f   redis:5                    "docker-entrypoint.s…"   14 hours ago   Up 14 hours   0.0.0.0:6379->6379/tcp              redis
+4d989f83e79f   mysql:5.7                  "docker-entrypoint.s…"   14 hours ago   Up 14 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+```
 
 正常情况8G内存应该能流畅部署和运行整套服务，以下是演示环境Docker运行资源情况参考：
 
 ```shell script
-
+[root@localhost ~]# docker stats
 CONTAINER ID   NAME             CPU %     MEM USAGE / LIMIT    MEM %     NET I/O           BLOCK I/O     PIDS
 816bd3240e29   nginx            0.00%     1.539MiB / 11.3GiB   0.01%     2.56kB / 841B     0B / 0B       2
 c9e8efd0c710   entdiy-gateway   0.87%     379.3MiB / 11.3GiB   3.28%     29.2kB / 25.4kB   0B / 0B       74
