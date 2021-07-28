@@ -8,7 +8,7 @@ services:
       TZ: 'Asia/Shanghai'
     volumes:
       - ../../../cache/repository:/root/.m2/repository
-      - ../../../cache/node_modules:/build/entdiy-ui/node_modules
+      - ../../../cache/node_modules:/entdiy-cloud/entdiy-ui/node_modules
       - ../..:/entdiy-cloud
     entrypoint: /entrypoint.sh
     restart: on-failure:3
