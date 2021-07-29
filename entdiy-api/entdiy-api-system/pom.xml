@@ -20,7 +20,6 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-security</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

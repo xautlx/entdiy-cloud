@@ -318,6 +318,96 @@
                 <version>28.2-jre</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-common-datascope</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-api-file</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-api-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-feign</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-flyway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-logger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-swagger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-starter-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.entdiy</groupId>
+                <artifactId>entdiy-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

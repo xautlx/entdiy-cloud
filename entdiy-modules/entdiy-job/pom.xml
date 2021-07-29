@@ -32,19 +32,16 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-mybatis</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-web</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-config</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -54,14 +51,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

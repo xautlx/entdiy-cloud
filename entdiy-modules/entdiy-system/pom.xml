@@ -16,19 +16,16 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-api-file</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-web</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-config</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

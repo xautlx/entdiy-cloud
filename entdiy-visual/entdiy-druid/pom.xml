@@ -17,7 +17,6 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR5</spring-cloud.version>
-
         <jar-output-dir>../../quick-start/apps-service/artifacts</jar-output-dir>
     </properties>
 
@@ -163,7 +162,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.10</version>
+            <version>1.18.16</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -192,6 +191,16 @@
     <build>
         <finalName>entdiy-druid</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

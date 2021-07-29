@@ -73,6 +73,7 @@ ignore:
     - /*/pub/**
     - /monitor/**
     - /druid/**
+    - /docs/**
     - /auth/logout
     - /auth/login
     - /*/v2/api-docs

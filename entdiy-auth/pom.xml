@@ -28,43 +28,36 @@
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-common-security</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-api-system</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-redis</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-feign</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-swagger</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-starter-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.entdiy</groupId>
             <artifactId>entdiy-config</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
