@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cat /etc/apt/sources.list
-
 echo Start mvn package for java project...
 cd /entdiy-cloud
 java -version

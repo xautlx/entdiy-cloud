@@ -31,6 +31,10 @@ vi /etc/docker/daemon.json
 {
   "registry-mirrors": ["http://hub-mirror.c.163.com","https://docker.mirrors.ustc.edu.cn"]
 }
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
 ```
 
 * 安装日志组件Loki的docker plugin插件
