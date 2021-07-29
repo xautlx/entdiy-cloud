@@ -16,7 +16,7 @@ RUN apt-get update
 #RUN apt-get install net-tools
 #RUN apt-get install telnet
 
-RUN apt-get install -y maven nodejs npm
+RUN apt-get install -y maven nodejs npm --fix-missing
 RUN echo "Maven: " && mvn -v
 RUN echo "Node: " && node -v
 RUN echo "NPM: " && npm -v
