@@ -6,9 +6,7 @@ ENV TZ "Asia/Shanghai"
 
 WORKDIR /entdiy-cloud
 
-RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
-RUN cat /etc/apt/sources.list
-RUN rm -Rf /var/lib/apt/lists/*
+COPY sources.list /etc/apt/sources.list
 #
 #
 RUN apt-get update
