@@ -78,8 +78,10 @@ com.entdiy
 本项目保留若依项目原始介绍页面详见： [RuoYi-Cloud.md](https://gitee.com/xautlx/entdiy-cloud/blob/master/RuoYi-Cloud.md) 。
 
 * 本项目基于作者工作及之前多个应用开发框架开源项目经验，
- [s2jh4net@gitee.com](https://gitee.com/xautlx/s2jh4net)  / [s2jh4net@github.com](https://github.com/xautlx/s2jh4net) / 
- [s2jh@gitee.com](https://gitee.com/xautlx/s2jh)  / [s2jh@github.com](https://github.com/xautlx/s2jh) ，不断增强优化，敬请关注。
+ [s2jh4net@gitee.com](https://gitee.com/xautlx/s2jh4net)  / 
+ [s2jh4net@github.com](https://github.com/xautlx/s2jh4net) / 
+ [s2jh@gitee.com](https://gitee.com/xautlx/s2jh)  / 
+ [s2jh@github.com](https://github.com/xautlx/s2jh) ，不断增强优化，敬请关注。
  
 * 欢迎关注项目作者其他开源项目：[https://gitee.com/xautlx](https://gitee.com/xautlx) / [https://github.com/xautlx](https://github.com/xautlx) 
 
