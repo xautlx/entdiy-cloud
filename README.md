@@ -41,12 +41,13 @@ com.entdiy
 │       └── entdiy-job                        // 定时任务      [9203]
 │       └── entdiy-system                     // 系统模块      [9201]
 ├── entdiy-starter         // 组件模块
+│       └── entdiy-starter-common             // Common组件
 │       └── entdiy-starter-feign              // Feign组件
 │       └── entdiy-starter-flyway             // Flyway组件
 │       └── entdiy-starter-logger             // 日志组件
 │       └── entdiy-starter-mybatis            // MyBatisPlus组件
 │       └── entdiy-starter-redis              // Redis组件
-│       └── entdiy-starter-swagger            // Swagger组件
+│       └── entdiy-starter-swagger            // Swagger、Knife4j组件
 │       └── entdiy-starter-web                // Web整合定义
 ├── entdiy-ui              // 前端框架 [80]
 ├── entdiy-visual          // 图形化管理模块
@@ -67,14 +68,14 @@ com.entdiy
 
 ## 快速开始
 
-[Quick Start | 一键本地部署](./quick-start/README.md) : 本地Docker环境一键运行整个项目的编译打包、部署运行，快速体验项目所有功能。
+[Quick Start | 一键本地部署](https://gitee.com/xautlx/entdiy-cloud/blob/master/quick-start/README.md) : 本地Docker环境一键运行整个项目的编译打包、部署运行，快速体验项目所有功能。
 
-[Snapshot | 系统快照截图](./quick-start/Snapshot.md) : 系统主要功能和服务界面截图，快速了解整个系统涵盖的主要内容。
+[Snapshot | 系统快照截图](https://gitee.com/xautlx/entdiy-cloud/blob/master/quick-start/Snapshot.md) : 系统主要功能和服务界面截图，快速了解整个系统涵盖的主要内容。
 
 ## 项目参考
 
 * 本项目基于 [RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud) 扩展定制，感谢若依开源项目作者。
-本项目保留若依项目原始介绍页面详见： [RuoYi-Cloud.md](./RuoYi-Cloud.md) 。
+本项目保留若依项目原始介绍页面详见： [RuoYi-Cloud.md](https://gitee.com/xautlx/entdiy-cloud/blob/master/RuoYi-Cloud.md) 。
 
 * 本项目基于作者工作及之前多个应用开发框架开源项目经验，
  [s2jh4net@gitee.com](https://gitee.com/xautlx/s2jh4net)  / [s2jh4net@github.com](https://github.com/xautlx/s2jh4net) / 
