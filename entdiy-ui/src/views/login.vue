@@ -50,7 +50,9 @@
           <span v-else>登 录 中...</span>
         </el-button>
       </el-form-item>
+
     </el-form>
+
     <!--  底部  -->
     <div class="el-login-footer">
       <span>Copyright © 2021 entdiy.com All Rights Reserved.</span>
@@ -102,6 +104,21 @@ export default {
   created() {
     this.getCode();
     this.getCookie();
+
+    // 仅演示说明之用，实际项目直接移除即可
+    this.$notify.info({
+      position: 'bottom-right',
+      duration: 0,
+      title: '演示访问异常操作指南',
+      dangerouslyUseHTMLString: true,
+      message:
+        '<p>当前演示部署与开源代码内容完全一致，未做任何演示操作锁定控制，请勿修改密码之类操作。</p>' +
+        '<p>如果遇到无法登录或系统内部数据混乱，请访问 ' +
+        '<a style="color: blue" href="http://tool.entdiy.com/jenkins/job/demo-entdiy-cloud/" target="_blank">项目演示Jenkins构建服务</a> ' +
+        '触发全自动构建重置演示应用。' +
+        '触发构建后大约几分钟即可恢复正常登录或初始数据状态。</p>'
+    });
+
   },
   methods: {
     getCode() {
