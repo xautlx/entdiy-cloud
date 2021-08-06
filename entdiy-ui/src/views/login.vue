@@ -116,7 +116,7 @@ export default {
         '<p>如果遇到无法登录或系统内部数据混乱，请访问 ' +
         '<a style="color: blue" href="http://tool.entdiy.com/jenkins/job/demo-entdiy-cloud/" target="_blank">项目演示Jenkins构建服务</a> ' +
         '触发全自动构建重置演示应用。' +
-        '触发构建后大约几分钟即可恢复正常登录或初始数据状态。</p>'
+        '触发构建后大约几分钟即可恢复正常登录和初始数据状态。</p>'
     });
 
   },
