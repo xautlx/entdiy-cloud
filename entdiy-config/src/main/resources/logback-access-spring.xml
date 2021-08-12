@@ -7,6 +7,10 @@
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator class="ch.qos.logback.access.net.URLEvaluator">
                 <URL>/actuator</URL>
+                <URL>/v2</URL>
+                <URL>/csrf</URL>
+                <URL>/swagger</URL>
+                <URL>/webjars</URL>
             </evaluator>
             <OnMismatch>NEUTRAL</OnMismatch>
             <OnMatch>DENY</OnMatch>

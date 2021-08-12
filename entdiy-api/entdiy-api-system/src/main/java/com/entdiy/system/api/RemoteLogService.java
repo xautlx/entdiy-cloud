@@ -1,8 +1,7 @@
 package com.entdiy.system.api;
 
-import com.entdiy.common.core.constant.FeignConstants;
 import com.entdiy.common.core.domain.R;
-import com.entdiy.system.api.constant.ServiceConstants;
+import com.entdiy.system.api.constant.SystemFeignConstants;
 import com.entdiy.system.api.domain.SysOperLog;
 import com.entdiy.system.api.factory.RemoteLogFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 日志服务
  */
 @FeignClient(contextId = "remoteLogService",
-        value = ServiceConstants.SYSTEM_SERVICE,
-        url = FeignConstants.SERVICE_URL,
+        value = SystemFeignConstants.SERVICE_ID,
+        url = SystemFeignConstants.SERVICE_URL,
         fallbackFactory = RemoteLogFallbackFactory.class)
 public interface RemoteLogService {
     /**

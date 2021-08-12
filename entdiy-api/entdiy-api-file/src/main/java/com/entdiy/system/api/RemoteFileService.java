@@ -1,8 +1,7 @@
 package com.entdiy.system.api;
 
-import com.entdiy.common.core.constant.FeignConstants;
 import com.entdiy.common.core.domain.R;
-import com.entdiy.system.api.constant.ServiceConstants;
+import com.entdiy.system.api.constant.FileFeignConstants;
 import com.entdiy.system.api.domain.SysFile;
 import com.entdiy.system.api.factory.RemoteFileFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,8 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
  * 文件服务
  */
 @FeignClient(contextId = "remoteFileService",
-        value = ServiceConstants.FILE_SERVICE,
-        url = FeignConstants.SERVICE_URL,
+        value = FileFeignConstants.SERVICE_ID,
+        url = FileFeignConstants.SERVICE_URL,
         fallbackFactory = RemoteFileFallbackFactory.class)
 public interface RemoteFileService {
     /**

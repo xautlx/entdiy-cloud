@@ -1,9 +1,8 @@
 package com.entdiy.system.api;
 
-import com.entdiy.common.core.constant.FeignConstants;
 import com.entdiy.common.core.domain.R;
 import com.entdiy.common.security.model.LoginUser;
-import com.entdiy.system.api.constant.ServiceConstants;
+import com.entdiy.system.api.constant.SystemFeignConstants;
 import com.entdiy.system.api.domain.SysUser;
 import com.entdiy.system.api.factory.RemoteUserFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  * 用户服务
  */
 @FeignClient(contextId = "remoteUserService",
-        value = ServiceConstants.SYSTEM_SERVICE,
-        url = FeignConstants.SERVICE_URL,
+        value = SystemFeignConstants.SERVICE_ID,
+        url = SystemFeignConstants.SERVICE_URL,
         fallbackFactory = RemoteUserFallbackFactory.class)
 public interface RemoteUserService {
     /**

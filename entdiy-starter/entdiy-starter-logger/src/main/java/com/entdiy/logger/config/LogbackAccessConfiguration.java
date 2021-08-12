@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 public class LogbackAccessConfiguration {
 
     @Bean
-    @ConditionalOnProperty(name = "logback.access.enabled", matchIfMissing = true)
+    @ConditionalOnProperty(name = "logback.access.enabled", matchIfMissing = false)
     public FilterRegistrationBean requestResponseLogFilter() {
         FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
         TeeFilter filter = new TeeFilter();
         filterRegBean.setFilter(filter);
-        filterRegBean.setName("Request Response Filter");
+        filterRegBean.setName("Request/Response Access Logger Filter");
         filterRegBean.setAsyncSupported(Boolean.TRUE);
         return filterRegBean;
     }
