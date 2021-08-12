@@ -51,8 +51,8 @@ com.entdiy
 │       └── entdiy-starter-web                // Web整合定义
 ├── entdiy-ui              // 前端框架 [80]
 ├── entdiy-visual          // 图形化管理模块
+│       └── entdiy-druid                      // Druid SQL监控   [9101]
 │       └── entdiy-monitor                    // Boot Admin监控  [9100]
-│       └── entdiy-monitor                    // Druid SQL监控   [9101]
 ├── quick-start            // 快速开始
 ├── pom.xml                // 公共依赖
 ~~~
