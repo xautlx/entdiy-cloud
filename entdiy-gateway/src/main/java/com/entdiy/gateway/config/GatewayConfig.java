@@ -21,10 +21,4 @@ public class GatewayConfig
         return new SentinelFallbackHandler();
     }
 
-//    @Bean
-//    @Order(-1)
-//    public GlobalFilter sentinelGatewayFilter()
-//    {
-//        return new SentinelGatewayFilter();
-//    }
 }

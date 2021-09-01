@@ -1,11 +1,24 @@
 server:
   port: 8080
-
-entdiy:
-  # 如果以allinone模式开发部署应用则取消此项注释
-  allinone-uri: http://127.0.0.1:9500
 spring:
   cloud:
+    sentinel:
+      # 开发环境不启用，其余环境启用基于Nacos配置的限流控制
+      enabled: true
+      # 取消控制台懒加载
+      eager: true
+      transport:
+        # 控制台地址
+        dashboard: 127.0.0.1:8718
+      # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+            dataId: entdiy-gateway-sentinel.json
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
     gateway:
       discovery:
         locator:
@@ -15,7 +28,7 @@ spring:
         # 认证中心
         - id: entdiy-auth
           #uri: lb://entdiy-auth
-          uri: ${entdiy.allinone-uri:http://127.0.0.1:9204}
+          uri: http://127.0.0.1:9204
           predicates:
             - Path=/auth/**
           filters:
@@ -26,7 +39,7 @@ spring:
         # 代码生成
         - id: entdiy-gen
           #uri: lb://entdiy-gen
-          uri: ${entdiy.allinone-uri:http://127.0.0.1:9202}
+          uri: http://127.0.0.1:9202
           predicates:
             - Path=/code/**
           filters:
@@ -34,7 +47,7 @@ spring:
         # 定时任务
         - id: entdiy-job
           #uri: lb://entdiy-job
-          uri: ${entdiy.allinone-uri:http://127.0.0.1:9203}
+          uri: http://127.0.0.1:9203
           predicates:
             - Path=/schedule/**
           filters:
@@ -42,7 +55,7 @@ spring:
         # 系统模块
         - id: entdiy-system
           #uri: lb://entdiy-system
-          uri: ${entdiy.allinone-uri:http://127.0.0.1:9201}
+          uri: http://127.0.0.1:9201
           predicates:
             - Path=/system/**
           filters:
@@ -50,7 +63,7 @@ spring:
         # 文件服务
         - id: entdiy-file
           #uri: lb://entdiy-file
-          uri: ${entdiy.allinone-uri:http://127.0.0.1:9300}
+          uri: http://127.0.0.1:9300
           predicates:
             - Path=/file/**
           filters:

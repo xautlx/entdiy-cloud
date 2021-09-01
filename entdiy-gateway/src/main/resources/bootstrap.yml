@@ -5,19 +5,3 @@ spring:
   application:
     # 必须在当前bootstrap配置文件中定义应用名称，基于此应用名称访问对应Nacos配置文件
     name: entdiy-gateway
-
-    sentinel:
-      # 取消控制台懒加载
-      eager: true
-      transport:
-        # 控制台地址
-        dashboard: 127.0.0.1:8718
-      # nacos配置持久化
-      datasource:
-        ds1:
-          nacos:
-            server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
-            dataId: entdiy-gateway-sentinel.json
-            groupId: DEFAULT_GROUP
-            data-type: json
-            rule-type: flow
