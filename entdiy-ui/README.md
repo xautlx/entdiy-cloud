@@ -16,7 +16,7 @@ yarn
 
 * 启动开发运行
 
-yarn serve
+yarn dev
 
 * 构建部署包
 

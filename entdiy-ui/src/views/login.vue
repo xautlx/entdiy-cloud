@@ -56,6 +56,11 @@
     <!--  底部  -->
     <div class="el-login-footer">
       <span>Copyright © 2021 entdiy.com All Rights Reserved.</span>
+      <span style="padding-left: 10px">
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50010602502888" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img :src="beianImg" style="float:left;"/>渝公网安备 50010602502888号
+        </a>
+      </span>
     </div>
   </div>
 </template>
@@ -65,12 +70,14 @@ import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import logo from '@/assets/logo/logo.png'
+import beianImg from '@/assets/images/beian.png'
 
 export default {
   name: "Login",
   data() {
     return {
       logo,
+      beianImg,
       codeUrl: "",
       cookiePassword: "",
       loginForm: {
