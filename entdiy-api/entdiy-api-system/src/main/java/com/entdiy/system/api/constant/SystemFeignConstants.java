@@ -8,11 +8,11 @@ public class SystemFeignConstants {
     /**
      * 模块的service id属性
      */
-    public static final String SERVICE_ID = "entdiy-file";
+    public static final String SERVICE_ID = "entdiy-system";
 
     /**
      * 模块的service url属性,用于开发模式可定制设置为请求本地或特定url的服务
      */
-    public static final String SERVICE_URL = "${app.feign.url.file:}";
+    public static final String SERVICE_URL = "${app.feign.url.system:}";
 }
 
